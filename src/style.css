@@ -1,0 +1,359 @@
+/* ABOUTME: Design system CSS custom properties extracted from Figma */
+/* ABOUTME: Defines colors, typography, spacing, and border radius tokens */
+
+:root {
+  /* ===================
+     COLORS
+     =================== */
+
+  /* Neutral */
+  --color-neutral-950: #000000;
+  --color-neutral-0: #ffffff;
+
+  /* Indigo */
+  --color-indigo-700: #5c2dd5;
+  --color-indigo-500: #7945ff;
+
+  /* Other Colors */
+  --color-rose-400: #fd6687;
+  --color-amber-300: #ffce67;
+
+  /* Background colors from designs */
+  --color-bg-dark: #21214d;
+
+  /* ===================
+     TYPOGRAPHY
+     =================== */
+
+  --font-family: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+
+  /* Text Preset 1 - Desktop */
+  --text-preset-1-size: 3.5rem;      /* 56px */
+  --text-preset-1-line-height: 1.25; /* 125% */
+  --text-preset-1-letter-spacing: 0;
+  --text-preset-1-weight: 700;
+
+  /* Text Preset 1 - Mobile */
+  --text-preset-1-mobile-size: 2rem;       /* 32px */
+  --text-preset-1-mobile-line-height: 1.3; /* 130% */
+  --text-preset-1-mobile-letter-spacing: 0;
+  --text-preset-1-mobile-weight: 700;
+
+  /* Text Preset 2 */
+  --text-preset-2-size: 1.5rem;      /* 24px */
+  --text-preset-2-line-height: 1.3;  /* 130% */
+  --text-preset-2-letter-spacing: 0;
+  --text-preset-2-weight: 700;
+
+  /* Text Preset 3 */
+  --text-preset-3-size: 1.25rem;     /* 20px */
+  --text-preset-3-line-height: 1.3;  /* 130% */
+  --text-preset-3-letter-spacing: 0;
+  --text-preset-3-weight: 700;
+
+  /* Text Preset 4 - Bold */
+  --text-preset-4-size: 1rem;        /* 16px */
+  --text-preset-4-line-height: 1.25; /* 125% */
+  --text-preset-4-letter-spacing: 0;
+  --text-preset-4-bold-weight: 700;
+  --text-preset-4-medium-weight: 500;
+
+  /* ===================
+     SPACING
+     =================== */
+
+  --spacing-0: 0;
+  --spacing-025: 0.125rem;   /* 2px */
+  --spacing-150: 0.75rem;    /* 12px */
+  --spacing-200: 1rem;       /* 16px */
+  --spacing-225: 1.125rem;   /* 18px */
+  --spacing-250: 1.25rem;    /* 20px */
+  --spacing-375: 1.875rem;   /* 30px */
+  --spacing-400: 2rem;       /* 32px */
+  --spacing-500: 2.5rem;     /* 40px */
+  --spacing-600: 3rem;       /* 48px */
+  --spacing-800: 4rem;       /* 64px */
+  --spacing-900: 4.5rem;     /* 72px */
+  --spacing-1000: 5rem;      /* 80px */
+
+  /* ===================
+     BORDER RADIUS
+     =================== */
+
+  --radius-0: 0;
+  --radius-4: 0.25rem;       /* 4px */
+  --radius-6: 0.375rem;      /* 6px */
+  --radius-20: 1.25rem;      /* 20px */
+  --radius-40: 2.5rem;       /* 40px */
+  --radius-60: 3.75rem;      /* 60px */
+  --radius-full: 999px;
+
+  /* ===================
+     SHADOWS
+     =================== */
+
+  --shadow-button-default: 0px 10px 0px 0px var(--color-neutral-950);
+  --shadow-button-active: 0px 10px 0px 0px var(--color-indigo-700);
+  --shadow-button-small-default: 0px 5px 0px 0px var(--color-neutral-950);
+  --shadow-button-small-active: 0px 5px 0px 0px var(--color-indigo-700);
+
+  /* ===================
+     BORDERS
+     =================== */
+
+  --border-width-button: 3px;
+}
+
+/* ===================
+   BASE STYLES
+   =================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--text-preset-4-size);
+  line-height: var(--text-preset-4-line-height);
+  color: var(--color-neutral-950);
+  background-color: var(--color-neutral-0);
+}
+
+/* ===================
+   TYPOGRAPHY CLASSES
+   =================== */
+
+.text-preset-1 {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-1-size);
+  font-weight: var(--text-preset-1-weight);
+  line-height: var(--text-preset-1-line-height);
+  letter-spacing: var(--text-preset-1-letter-spacing);
+}
+
+.text-preset-1-mobile {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-1-mobile-size);
+  font-weight: var(--text-preset-1-mobile-weight);
+  line-height: var(--text-preset-1-mobile-line-height);
+  letter-spacing: var(--text-preset-1-mobile-letter-spacing);
+}
+
+.text-preset-2 {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-2-size);
+  font-weight: var(--text-preset-2-weight);
+  line-height: var(--text-preset-2-line-height);
+  letter-spacing: var(--text-preset-2-letter-spacing);
+}
+
+.text-preset-3 {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-3-size);
+  font-weight: var(--text-preset-3-weight);
+  line-height: var(--text-preset-3-line-height);
+  letter-spacing: var(--text-preset-3-letter-spacing);
+}
+
+.text-preset-4-bold {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-bold-weight);
+  line-height: var(--text-preset-4-line-height);
+  letter-spacing: var(--text-preset-4-letter-spacing);
+}
+
+.text-preset-4-medium {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-medium-weight);
+  line-height: var(--text-preset-4-line-height);
+  letter-spacing: var(--text-preset-4-letter-spacing);
+}
+
+/* ===================
+   BUTTON BASE
+   =================== */
+
+.btn {
+  font-family: var(--font-family);
+  font-weight: var(--text-preset-2-weight);
+  border: var(--border-width-button) solid var(--color-neutral-950);
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  transform: translateY(5px);
+}
+
+/* ===================
+   MAIN MENU BUTTONS
+   =================== */
+
+.btn-main-menu {
+  font-size: var(--text-preset-2-size);
+  line-height: var(--text-preset-2-line-height);
+  padding: var(--spacing-250);
+  border-radius: var(--radius-20);
+  width: 400px;
+  min-height: 72px;
+  box-shadow: var(--shadow-button-default);
+}
+
+.btn-main-menu:hover,
+.btn-main-menu:focus {
+  border-color: var(--color-indigo-700);
+  box-shadow: var(--shadow-button-active);
+}
+
+.btn-main-menu:active {
+  box-shadow: 0px 5px 0px 0px var(--color-indigo-700);
+}
+
+/* Player vs CPU Button */
+.btn-player-vs-cpu {
+  background-color: var(--color-rose-400);
+  color: var(--color-neutral-0);
+}
+
+/* Player vs Player Button */
+.btn-player-vs-player {
+  background-color: var(--color-amber-300);
+  color: var(--color-neutral-950);
+}
+
+/* Game Rules Button */
+.btn-game-rules {
+  background-color: var(--color-neutral-0);
+  color: var(--color-neutral-950);
+}
+
+/* Button content layout for buttons with icons */
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--spacing-200);
+}
+
+/* ===================
+   IN-GAME MENU BUTTONS
+   =================== */
+
+.btn-ingame-menu {
+  font-size: var(--text-preset-2-size);
+  line-height: var(--text-preset-2-line-height);
+  padding: var(--spacing-250);
+  border-radius: var(--radius-20);
+  width: 400px;
+  min-height: 72px;
+  box-shadow: var(--shadow-button-default);
+}
+
+.btn-ingame-menu:hover,
+.btn-ingame-menu:focus {
+  border-color: var(--color-indigo-700);
+  box-shadow: var(--shadow-button-active);
+}
+
+.btn-ingame-menu:active {
+  box-shadow: 0px 5px 0px 0px var(--color-indigo-700);
+}
+
+/* Continue Button */
+.btn-continue {
+  background-color: var(--color-neutral-0);
+  color: var(--color-neutral-950);
+}
+
+/* Restart Button (in-game menu) */
+.btn-restart-ingame {
+  background-color: var(--color-neutral-0);
+  color: var(--color-neutral-950);
+}
+
+/* Quit Button */
+.btn-quit {
+  background-color: var(--color-rose-400);
+  color: var(--color-neutral-0);
+}
+
+/* ===================
+   NAVIGATION BAR BUTTONS
+   =================== */
+
+.btn-nav {
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-bold-weight);
+  line-height: var(--text-preset-4-line-height);
+  padding: 0 var(--spacing-250);
+  border-radius: var(--radius-full);
+  min-height: 39px;
+  border: none;
+  text-transform: uppercase;
+}
+
+.btn-nav:active {
+  transform: translateY(2px);
+}
+
+/* Default Nav Button */
+.btn-nav-default {
+  background-color: var(--color-indigo-700);
+  color: var(--color-neutral-0);
+}
+
+.btn-nav-default:hover,
+.btn-nav-default:focus {
+  background-color: var(--color-rose-400);
+}
+
+/* Active Nav Button */
+.btn-nav-active {
+  background-color: var(--color-rose-400);
+  color: var(--color-neutral-0);
+}
+
+/* ===================
+   RULES BUTTON (Circle)
+   =================== */
+
+.btn-rules {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-rose-400);
+  border: var(--border-width-button) solid var(--color-neutral-950);
+  box-shadow: var(--shadow-button-small-default);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-rules:hover,
+.btn-rules:focus {
+  border-color: var(--color-indigo-700);
+  box-shadow: var(--shadow-button-small-active);
+}
+
+.btn-rules:active {
+  transform: translateY(3px);
+  box-shadow: 0px 2px 0px 0px var(--color-indigo-700);
+}
+
+.btn-rules svg {
+  stroke: var(--color-neutral-0);
+  stroke-width: 3px;
+}

@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connect Four - Design System Kitchen Sink</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <style>
+      /* Kitchen sink specific styles */
+      .kitchen-sink {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: var(--spacing-500);
+      }
+
+      .section {
+        margin-bottom: var(--spacing-800);
+      }
+
+      .section-title {
+        font-size: var(--text-preset-2-size);
+        font-weight: var(--text-preset-2-weight);
+        margin-bottom: var(--spacing-400);
+        padding-bottom: var(--spacing-200);
+        border-bottom: 2px solid var(--color-neutral-950);
+      }
+
+      .subsection {
+        margin-bottom: var(--spacing-500);
+      }
+
+      .subsection-title {
+        font-size: var(--text-preset-3-size);
+        font-weight: var(--text-preset-3-weight);
+        margin-bottom: var(--spacing-250);
+        color: var(--color-indigo-700);
+      }
+
+      /* Color swatches */
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-200);
+      }
+
+      .color-swatch {
+        border-radius: var(--radius-6);
+        overflow: hidden;
+        border: 1px solid var(--color-neutral-950);
+      }
+
+      .color-swatch__preview {
+        height: 80px;
+      }
+
+      .color-swatch__info {
+        padding: var(--spacing-150);
+        background: var(--color-neutral-0);
+      }
+
+      .color-swatch__name {
+        font-weight: var(--text-preset-4-bold-weight);
+        margin-bottom: var(--spacing-025);
+      }
+
+      .color-swatch__value {
+        font-size: 0.875rem;
+        color: #666;
+      }
+
+      /* Spacing demo */
+      .spacing-demo {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-150);
+      }
+
+      .spacing-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-200);
+      }
+
+      .spacing-item__label {
+        width: 120px;
+        font-weight: var(--text-preset-4-bold-weight);
+      }
+
+      .spacing-item__bar {
+        height: 24px;
+        background: var(--color-indigo-500);
+        border-radius: var(--radius-4);
+      }
+
+      .spacing-item__value {
+        color: #666;
+        font-size: 0.875rem;
+      }
+
+      /* Radius demo */
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: var(--spacing-250);
+      }
+
+      .radius-item {
+        text-align: center;
+      }
+
+      .radius-item__preview {
+        width: 100px;
+        height: 100px;
+        background: var(--color-amber-300);
+        border: 2px solid var(--color-neutral-950);
+        margin: 0 auto var(--spacing-150);
+      }
+
+      .radius-item__name {
+        font-weight: var(--text-preset-4-bold-weight);
+      }
+
+      .radius-item__value {
+        font-size: 0.875rem;
+        color: #666;
+      }
+
+      /* Typography demo */
+      .typography-item {
+        margin-bottom: var(--spacing-400);
+        padding: var(--spacing-250);
+        background: #f9f9f9;
+        border-radius: var(--radius-6);
+      }
+
+      .typography-item__meta {
+        font-size: 0.875rem;
+        color: #666;
+        margin-bottom: var(--spacing-150);
+      }
+
+      /* Button grid */
+      .button-grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-250);
+        align-items: flex-start;
+      }
+
+      .button-row {
+        display: flex;
+        gap: var(--spacing-250);
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Dark background section */
+      .dark-bg {
+        background: var(--color-bg-dark);
+        padding: var(--spacing-500);
+        border-radius: var(--radius-20);
+        margin-top: var(--spacing-250);
+      }
+
+      .dark-bg .subsection-title {
+        color: var(--color-neutral-0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="kitchen-sink">
+      <h1 class="text-preset-1">Connect Four Design System</h1>
+      <p class="text-preset-4-medium" style="margin-bottom: var(--spacing-800);">
+        A comprehensive kitchen sink showcasing all design tokens and components.
+      </p>
+
+      <!-- COLORS -->
+      <section class="section">
+        <h2 class="section-title">Colors</h2>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Neutral</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-neutral-950);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Neutral 950</div>
+                <div class="color-swatch__value">#000000</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-neutral-0);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Neutral 0</div>
+                <div class="color-swatch__value">#FFFFFF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Indigo</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-indigo-700);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Indigo 700</div>
+                <div class="color-swatch__value">#5C2DD5</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-indigo-500);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Indigo 500</div>
+                <div class="color-swatch__value">#7945FF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Other Colors</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-rose-400);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Rose 400</div>
+                <div class="color-swatch__value">#FD6687</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-amber-300);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">Amber 300</div>
+                <div class="color-swatch__value">#FFCE67</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__preview" style="background: var(--color-bg-dark);"></div>
+              <div class="color-swatch__info">
+                <div class="color-swatch__name">BG Dark</div>
+                <div class="color-swatch__value">#21214D</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TYPOGRAPHY -->
+      <section class="section">
+        <h2 class="section-title">Typography</h2>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 1 — Space Grotesk Bold — 56px / 125%</div>
+          <div class="text-preset-1">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 1 (Mobile) — Space Grotesk Bold — 32px / 130%</div>
+          <div class="text-preset-1-mobile">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 2 — Space Grotesk Bold — 24px / 130%</div>
+          <div class="text-preset-2">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 3 — Space Grotesk Bold — 20px / 130%</div>
+          <div class="text-preset-3">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 4 (Bold) — Space Grotesk Bold — 16px / 125%</div>
+          <div class="text-preset-4-bold">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+
+        <div class="typography-item">
+          <div class="typography-item__meta">Text Preset 4 (Medium) — Space Grotesk Medium — 16px / 125%</div>
+          <div class="text-preset-4-medium">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+      </section>
+
+      <!-- SPACING -->
+      <section class="section">
+        <h2 class="section-title">Spacing</h2>
+
+        <div class="spacing-demo">
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-0</span>
+            <div class="spacing-item__bar" style="width: 0;"></div>
+            <span class="spacing-item__value">0px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-025</span>
+            <div class="spacing-item__bar" style="width: 2px;"></div>
+            <span class="spacing-item__value">2px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-150</span>
+            <div class="spacing-item__bar" style="width: 12px;"></div>
+            <span class="spacing-item__value">12px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-200</span>
+            <div class="spacing-item__bar" style="width: 16px;"></div>
+            <span class="spacing-item__value">16px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-225</span>
+            <div class="spacing-item__bar" style="width: 18px;"></div>
+            <span class="spacing-item__value">18px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-250</span>
+            <div class="spacing-item__bar" style="width: 20px;"></div>
+            <span class="spacing-item__value">20px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-375</span>
+            <div class="spacing-item__bar" style="width: 30px;"></div>
+            <span class="spacing-item__value">30px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-400</span>
+            <div class="spacing-item__bar" style="width: 32px;"></div>
+            <span class="spacing-item__value">32px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-500</span>
+            <div class="spacing-item__bar" style="width: 40px;"></div>
+            <span class="spacing-item__value">40px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-600</span>
+            <div class="spacing-item__bar" style="width: 48px;"></div>
+            <span class="spacing-item__value">48px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-800</span>
+            <div class="spacing-item__bar" style="width: 64px;"></div>
+            <span class="spacing-item__value">64px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-900</span>
+            <div class="spacing-item__bar" style="width: 72px;"></div>
+            <span class="spacing-item__value">72px</span>
+          </div>
+          <div class="spacing-item">
+            <span class="spacing-item__label">spacing-1000</span>
+            <div class="spacing-item__bar" style="width: 80px;"></div>
+            <span class="spacing-item__value">80px</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- BORDER RADIUS -->
+      <section class="section">
+        <h2 class="section-title">Border Radius</h2>
+
+        <div class="radius-grid">
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-0);"></div>
+            <div class="radius-item__name">radius-0</div>
+            <div class="radius-item__value">0px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-4);"></div>
+            <div class="radius-item__name">radius-4</div>
+            <div class="radius-item__value">4px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-6);"></div>
+            <div class="radius-item__name">radius-6</div>
+            <div class="radius-item__value">6px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-20);"></div>
+            <div class="radius-item__name">radius-20</div>
+            <div class="radius-item__value">20px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-40);"></div>
+            <div class="radius-item__name">radius-40</div>
+            <div class="radius-item__value">40px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-60);"></div>
+            <div class="radius-item__name">radius-60</div>
+            <div class="radius-item__value">60px</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-item__preview" style="border-radius: var(--radius-full);"></div>
+            <div class="radius-item__name">radius-full</div>
+            <div class="radius-item__value">999px</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUTTONS -->
+      <section class="section">
+        <h2 class="section-title">Buttons</h2>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Main Menu Buttons</h3>
+          <div class="button-grid">
+            <button class="btn btn-main-menu btn-player-vs-cpu">
+              <span class="btn-content">
+                <span>Play vs CPU</span>
+                <svg width="82" height="46" viewBox="0 0 82 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="player-vs-cpu">
+                    <circle id="Oval Copy 20" cx="59" cy="23" r="23" fill="white"/>
+                    <g id="Icon">
+                      <circle id="Oval Copy 11" cx="59" cy="23" r="20" fill="#FD6687"/>
+                      <g id="Icon_2">
+                        <g id="Icon Detail">
+                          <g id="Icon_3">
+                            <g id="Icon Detail_2">
+                              <path id="Path Copy" d="M66.0833 14.4167V17.4167H61.0833V14.4167H66.0833Z" fill="white"/>
+                              <path id="Path Copy 2" d="M56.9167 14.4167V17.4167H51.9167V14.4167H56.9167Z" fill="white"/>
+                              <path id="Path 2" d="M69 20.25V23.25H49V20.25H69Z" fill="white"/>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <circle id="Oval Copy 19" cx="23" cy="23" r="23" fill="white"/>
+                    <g id="Group">
+                      <circle id="Oval Copy 11_2" cx="23" cy="23" r="20" fill="#FD6687"/>
+                      <g id="Icon_4">
+                        <path id="Oval Copy 11_3" d="M35.25 21.2083C35.25 27.5596 30.1013 32.7083 23.75 32.7083C17.3987 32.7083 12.25 27.5596 12.25 21.2083H15.25C15.25 25.9028 19.0556 29.7083 23.75 29.7083C28.4444 29.7083 32.25 25.9028 32.25 21.2083H35.25Z" fill="white"/>
+                        <g id="Icon Detail_3">
+                          <path id="Path" d="M20.5417 14.6667V19.6537H17.5417V14.6667H20.5417Z" fill="white"/>
+                          <path id="Path Copy_2" d="M28.875 14.6667V19.6537H25.875V14.6667H28.875Z" fill="white"/>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </button>
+            <button class="btn btn-main-menu btn-player-vs-player">
+              <span class="btn-content">
+                <span>Play vs Player</span>
+                <svg width="82" height="46" viewBox="0 0 82 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="player-vs-player">
+                    <circle id="Oval Copy 17" cx="59" cy="23" r="23" fill="black"/>
+                    <circle id="Oval Copy 11" cx="59" cy="23" r="20" fill="#FFCE67"/>
+                    <g id="Icon">
+                      <path id="Oval Copy 11_2" d="M74.5833 21.2083C74.5833 27.5596 69.4345 32.7083 63.0833 32.7083C56.732 32.7083 51.5833 27.5596 51.5833 21.2083H54.5833C54.5833 25.9027 58.3888 29.7083 63.0833 29.7083C67.7777 29.7083 71.5833 25.9027 71.5833 21.2083H74.5833Z" fill="black"/>
+                      <g id="Icon Detail">
+                        <path id="Path" d="M62.375 14.6667V19.6537H59.375V14.6667H62.375Z" fill="black"/>
+                        <path id="Path Copy" d="M70.7083 14.6667V19.6537H67.7083V14.6667H70.7083Z" fill="black"/>
+                      </g>
+                    </g>
+                    <circle id="Oval Copy 18" cx="23" cy="23" r="23" fill="black"/>
+                    <g id="Icon Container">
+                      <circle id="Oval Copy 11_3" cx="23" cy="23" r="20" fill="#FFCE67"/>
+                      <g id="Icon_2">
+                        <path id="Oval Copy 11_4" d="M38.5833 21.2083C38.5833 27.5596 33.4345 32.7083 27.0833 32.7083C20.732 32.7083 15.5833 27.5596 15.5833 21.2083H18.5833C18.5833 25.9027 22.3888 29.7083 27.0833 29.7083C31.7777 29.7083 35.5833 25.9027 35.5833 21.2083H38.5833Z" fill="black"/>
+                        <g id="Icon Detail_2">
+                          <path id="Path_2" d="M26.375 14.6667V19.6537H23.375V14.6667H26.375Z" fill="black"/>
+                          <path id="Path Copy_2" d="M34.7083 14.6667V19.6537H31.7083V14.6667H34.7083Z" fill="black"/>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </button>
+            <button class="btn btn-main-menu btn-game-rules">Game Rules</button>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">In-Game Menu Buttons</h3>
+          <div class="button-grid">
+            <button class="btn btn-ingame-menu btn-continue">Continue Game</button>
+            <button class="btn btn-ingame-menu btn-restart-ingame">Restart</button>
+            <button class="btn btn-ingame-menu btn-quit">Quit Game</button>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Navigation Bar Buttons</h3>
+          <div class="button-row">
+            <button class="btn btn-nav btn-nav-default">Menu</button>
+            <button class="btn btn-nav btn-nav-default">Restart</button>
+            <button class="btn btn-nav btn-nav-default">Play Again</button>
+          </div>
+          <div class="button-row" style="margin-top: var(--spacing-200);">
+            <button class="btn btn-nav btn-nav-active">Menu (Active)</button>
+            <button class="btn btn-nav btn-nav-active">Restart (Active)</button>
+            <button class="btn btn-nav btn-nav-active">Play Again (Active)</button>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title">Rules Button</h3>
+          <div class="button-row">
+            <button class="btn btn-rules" aria-label="Game Rules">
+              <svg width="33" height="24" viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.06055 10.6426L11.3246 20.9066L31.1705 1.06067" stroke="white" stroke-width="3"/>
+              </svg>
+            </button>
+            <span class="text-preset-4-medium" style="margin-left: var(--spacing-200);">Circular rules/menu button (hover to see active state)</span>
+          </div>
+        </div>
+
+        <div class="dark-bg">
+          <h3 class="subsection-title">Buttons on Dark Background</h3>
+          <div class="button-row">
+            <button class="btn btn-nav btn-nav-default">Menu</button>
+            <button class="btn btn-nav btn-nav-active">Restart</button>
+            <button class="btn btn-rules" aria-label="Game Rules">
+              <svg width="33" height="24" viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.06055 10.6426L11.3246 20.9066L31.1705 1.06067" stroke="white" stroke-width="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SHADOWS -->
+      <section class="section">
+        <h2 class="section-title">Shadows</h2>
+
+        <div class="button-row">
+          <div style="padding: var(--spacing-250); background: var(--color-neutral-0); border: 3px solid var(--color-neutral-950); border-radius: var(--radius-20); box-shadow: var(--shadow-button-default);">
+            <span class="text-preset-4-bold">Default Shadow</span>
+            <div class="text-preset-4-medium" style="color: #666;">0px 10px 0px #000</div>
+          </div>
+          <div style="padding: var(--spacing-250); background: var(--color-neutral-0); border: 3px solid var(--color-indigo-700); border-radius: var(--radius-20); box-shadow: var(--shadow-button-active);">
+            <span class="text-preset-4-bold">Active Shadow</span>
+            <div class="text-preset-4-medium" style="color: #666;">0px 10px 0px #5C2DD5</div>
+          </div>
+        </div>
+        <div class="button-row" style="margin-top: var(--spacing-400);">
+          <div style="padding: var(--spacing-200); background: var(--color-neutral-0); border: 3px solid var(--color-neutral-950); border-radius: 50%; box-shadow: var(--shadow-button-small-default); width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;">
+            <span class="text-preset-4-bold" style="font-size: 10px; text-align: center;">Small Default</span>
+          </div>
+          <div style="padding: var(--spacing-200); background: var(--color-neutral-0); border: 3px solid var(--color-indigo-700); border-radius: 50%; box-shadow: var(--shadow-button-small-active); width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;">
+            <span class="text-preset-4-bold" style="font-size: 10px; text-align: center;">Small Active</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>
