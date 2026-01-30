@@ -425,3 +425,63 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* ===================
+   PELLET
+   =================== */
+
+/*
+ * Board geometry (relative units):
+ * - Board margin to first hole center: ~7.75% of width
+ * - Hole spacing (center to center): ~13.92% of width
+ * - Pellet diameter: ~10.13% of width
+ * - Bottom row top position: ~81.46% of height
+ * - Last row center to bottom edge: ~13.47% of height
+ */
+
+.pellet {
+  position: absolute;
+  /* Pellet is ~10.13% of board width, use same for height to keep circular */
+  width: 10.13%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color-rose-400);
+  /* box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.25); */
+  box-shadow: inset 0 4px 4px 0px rgba(65, 65, 65, 0.5);
+  z-index: 0;
+  pointer-events: none;
+  /* Pellet starts hidden above the board */
+  opacity: 0;
+}
+
+/* Position pellets horizontally by column */
+/* First column at 3.2%, then each column adds ~13.92% */
+.pellet[data-col="1"] { left: 3.2%; }
+.pellet[data-col="2"] { left: 17.12%; }
+.pellet[data-col="3"] { left: 31.04%; }
+.pellet[data-col="4"] { left: 44.96%; }
+.pellet[data-col="5"] { left: 58.88%; }
+.pellet[data-col="6"] { left: 72.8%; }
+.pellet[data-col="7"] { left: 86.72%; }
+
+/* Drop animation - from top to bottom row */
+@keyframes pellet-drop {
+  0% {
+    top: -12%;
+    opacity: 1;
+    z-index: 0;
+  }
+  99.9% {
+    z-index: 0;
+  }
+  100% {
+    /* Bottom row at ~78.8% from top */
+    top: 78.8%;
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.pellet--dropping {
+  animation: pellet-drop 0.6s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
