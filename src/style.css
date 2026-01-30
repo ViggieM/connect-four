@@ -446,8 +446,9 @@ body {
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: var(--color-rose-400);
-  /* box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.25); */
-  box-shadow: inset 0 4px 4px 0px rgba(65, 65, 65, 0.5);
+  box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
+  -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
   z-index: 0;
   pointer-events: none;
   /* Pellet starts hidden above the board */
@@ -464,7 +465,16 @@ body {
 .pellet[data-col="6"] { left: 72.8%; }
 .pellet[data-col="7"] { left: 86.72%; }
 
-/* Drop animation - from top to bottom row */
+/* Row positions (top edge of pellet) */
+/* Each row is ~13.92% apart, starting at 9.2% from top */
+.pellet[data-row="1"] { --target-top: 9.2%; }
+.pellet[data-row="2"] { --target-top: 23.12%; }
+.pellet[data-row="3"] { --target-top: 37.04%; }
+.pellet[data-row="4"] { --target-top: 50.96%; }
+.pellet[data-row="5"] { --target-top: 64.88%; }
+.pellet[data-row="6"] { --target-top: 78.8%; }
+
+/* Drop animation - from top to target row */
 @keyframes pellet-drop {
   0% {
     top: -12%;
@@ -475,8 +485,8 @@ body {
     z-index: 0;
   }
   100% {
-    /* Bottom row at ~78.8% from top */
-    top: 78.8%;
+    /* Target row position from --target-top, defaults to bottom row */
+    top: var(--target-top, 78.8%);
     opacity: 1;
     z-index: 5;
   }
@@ -484,4 +494,13 @@ body {
 
 .pellet--dropping {
   animation: pellet-drop 0.6s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
+
+/* Player colors */
+.pellet[data-player="1"] {
+  background-color: var(--color-rose-400);
+}
+
+.pellet[data-player="2"] {
+  background-color: var(--color-amber-300);
 }
