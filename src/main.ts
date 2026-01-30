@@ -37,6 +37,7 @@ let gameOver = false;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
+let isDropping = false;
 let roundStartingPlayer: Player = 1;
 
 // Timer state
@@ -215,6 +216,7 @@ function restartGame(): void {
   currentPlayer = roundStartingPlayer;
   gameOver = false;
   isPaused = false;
+  isDropping = false;
   // Clear winner color
   const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
   gameWrapper?.style.removeProperty('--winner-color');
@@ -265,8 +267,8 @@ function setupPelletDrop(): void {
 
   zones.forEach((zone) => {
     zone.addEventListener('click', () => {
-      // Ignore clicks if game is over or paused
-      if (gameOver || isPaused) return;
+      // Ignore clicks if game is over, paused, or a pellet is dropping
+      if (gameOver || isPaused || isDropping) return;
 
       const colAttr = zone.dataset.col;
       if (!colAttr) return;
@@ -293,6 +295,9 @@ function setupPelletDrop(): void {
 
       // Add to board
       board.appendChild(pellet);
+
+      // Block further clicks while animation is in progress
+      isDropping = true;
 
       // Trigger animation (requestAnimationFrame ensures CSS is applied first)
       requestAnimationFrame(() => {
@@ -332,6 +337,8 @@ function setupPelletDrop(): void {
               label.textContent = "It's a Draw!";
             }
           }
+          // Allow next click after animation completes
+          isDropping = false;
         },
         { once: true }
       );
