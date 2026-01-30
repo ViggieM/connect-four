@@ -10,6 +10,7 @@
 /* Components */
 @import './buttons.css';
 @import './main-menu.css';
+@import './rules.css';
 @import './game-board.css';
 @import './player-card.css';
 @import './turn-indicator.css';

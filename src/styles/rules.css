@@ -1,0 +1,107 @@
+/* ABOUTME: Styles for the game rules page */
+/* ABOUTME: Contains rules card layout, typography, and list styling */
+
+.rules-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-indigo-500);
+  padding: var(--spacing-250);
+}
+
+.rules-card {
+  position: relative;
+  background-color: var(--color-neutral-0);
+  border: 3px solid var(--color-neutral-950);
+  border-radius: var(--radius-40);
+  box-shadow: var(--shadow-button-default);
+  padding: var(--spacing-375) var(--spacing-400);
+  padding-bottom: var(--spacing-800);
+  width: 100%;
+  max-width: 480px;
+}
+
+.rules-card__title {
+  font-size: var(--text-preset-1-size);
+  font-weight: var(--text-preset-1-weight);
+  line-height: var(--text-preset-1-line-height);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 var(--spacing-375);
+  color: var(--color-neutral-950);
+}
+
+.rules-card__section-title {
+  font-size: var(--text-preset-3-size);
+  font-weight: var(--text-preset-3-weight);
+  line-height: var(--text-preset-3-line-height);
+  text-transform: uppercase;
+  color: var(--color-indigo-500);
+  margin: 0 0 var(--spacing-200);
+}
+
+.rules-card__text {
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-medium-weight);
+  line-height: var(--text-preset-4-line-height);
+  color: var(--color-neutral-950);
+  margin: 0 0 var(--spacing-375);
+  opacity: 0.66;
+}
+
+.rules-card__list {
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-medium-weight);
+  line-height: var(--text-preset-4-line-height);
+  color: var(--color-neutral-950);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: rules-counter;
+  opacity: 0.66;
+}
+
+.rules-card__list li {
+  counter-increment: rules-counter;
+  display: flex;
+  gap: var(--spacing-200);
+  margin-bottom: var(--spacing-150);
+}
+
+.rules-card__list li:last-child {
+  margin-bottom: 0;
+}
+
+.rules-card__list li::before {
+  content: counter(rules-counter);
+  flex-shrink: 0;
+  width: 1.5em;
+  font-weight: var(--text-preset-4-bold-weight);
+}
+
+.rules-card__button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  transition: box-shadow 0.1s ease;
+}
+
+.rules-card__button:active {
+  transform: translate(-50%, calc(50% + 3px));
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .rules-card {
+    border-radius: var(--radius-20);
+    padding: var(--spacing-250) var(--spacing-250);
+    padding-bottom: var(--spacing-600);
+  }
+
+  .rules-card__title {
+    font-size: var(--text-preset-1-mobile-size);
+    line-height: var(--text-preset-1-mobile-line-height);
+  }
+}

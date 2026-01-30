@@ -419,6 +419,7 @@ function initGame(): void {
 function setupMainMenu(): void {
   const btnVsCpu = document.getElementById('btn-vs-cpu');
   const btnVsPlayer = document.getElementById('btn-vs-player');
+  const btnRules = document.getElementById('btn-rules');
 
   btnVsCpu?.addEventListener('click', () => {
     sessionStorage.setItem('gameMode', 'cpu');
@@ -429,6 +430,21 @@ function setupMainMenu(): void {
     sessionStorage.setItem('gameMode', 'pvp');
     window.location.href = '/game.html';
   });
+
+  btnRules?.addEventListener('click', () => {
+    window.location.href = '/game-rules.html';
+  });
+}
+
+/**
+ * Set up event handlers for rules page.
+ */
+function setupRulesPage(): void {
+  const btnRulesOk = document.getElementById('btn-rules-ok');
+
+  btnRulesOk?.addEventListener('click', () => {
+    window.location.href = '/';
+  });
 }
 
 // Initialize when DOM is ready - detect which page we're on
@@ -437,5 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMainMenu();
   } else if (document.querySelector('.game-wrapper')) {
     initGame();
+  } else if (document.querySelector('.rules-card')) {
+    setupRulesPage();
   }
 });
