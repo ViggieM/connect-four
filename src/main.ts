@@ -12,6 +12,7 @@ import {
   checkDraw,
   internalRowToCssRow,
 } from './game';
+import { getCpuMove, CPU_DELAY_MS } from './cpu';
 
 // Game mode type
 type GameMode = 'pvp' | 'cpu';
@@ -44,6 +45,41 @@ let roundStartingPlayer: Player = 1;
 let turnTimer: number | null = null;
 let timeRemaining = 30;
 const TURN_TIME_LIMIT = 30;
+
+// CPU move state
+let cpuMoveTimeout: number | null = null;
+
+/**
+ * Cancel any pending CPU move.
+ */
+function cancelCpuMove(): void {
+  if (cpuMoveTimeout !== null) {
+    clearTimeout(cpuMoveTimeout);
+    cpuMoveTimeout = null;
+  }
+}
+
+/**
+ * Check if it's currently the CPU's turn.
+ */
+function isCpuTurn(): boolean {
+  return getGameMode() === 'cpu' && currentPlayer === 2;
+}
+
+/**
+ * Enable or disable hover zones on the game board.
+ * Disabled during CPU turn to prevent visual feedback for unclickable columns.
+ */
+function setHoverEnabled(enabled: boolean): void {
+  const zones = document.querySelector<HTMLElement>('.game-board__zones');
+  if (!zones) return;
+
+  if (enabled) {
+    zones.classList.remove('game-board__zones--disabled');
+  } else {
+    zones.classList.add('game-board__zones--disabled');
+  }
+}
 
 /**
  * Update the turn indicator to show the current player.
@@ -207,6 +243,9 @@ function clearBoard(): void {
  * Scores are preserved between rounds.
  */
 function restartGame(): void {
+  // Cancel any pending CPU move
+  cancelCpuMove();
+
   clearBoard();
   boardState = createBoard();
   // Only alternate starting player if the previous game ended
@@ -221,7 +260,15 @@ function restartGame(): void {
   const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
   gameWrapper?.style.removeProperty('--winner-color');
   updateTurnIndicator();
-  startTurnTimer();
+
+  // Check if CPU starts this round
+  if (isCpuTurn()) {
+    setHoverEnabled(false);
+    triggerCpuMove();
+  } else {
+    setHoverEnabled(true);
+    startTurnTimer();
+  }
 }
 
 /**
@@ -234,6 +281,7 @@ function openPauseDialog(): void {
 
   isPaused = true;
   stopTurnTimer();
+  cancelCpuMove();
   overlay.hidden = false;
   dialog.show();
   // Remove focus from auto-focused button
@@ -251,7 +299,122 @@ function closePauseDialog(): void {
   isPaused = false;
   overlay.hidden = true;
   dialog.close();
-  resumeTurnTimer();
+
+  // Resume appropriate action based on whose turn it is
+  if (isCpuTurn()) {
+    triggerCpuMove();
+  } else {
+    resumeTurnTimer();
+  }
+}
+
+/**
+ * Make a move in the specified column.
+ * Handles pellet creation, animation, win/draw detection, and turn switching.
+ */
+function makeMove(col: number): void {
+  const board = document.querySelector<HTMLElement>('.game-board');
+  if (!board) return;
+
+  // Find the lowest empty row and place the piece
+  const row = placePiece(boardState, col, currentPlayer);
+  if (row === -1) return; // Column is full, ignore
+
+  // Stop timer while processing the move
+  stopTurnTimer();
+
+  // Convert internal row to CSS row for positioning
+  const cssRow = internalRowToCssRow(row);
+
+  // Convert 0-indexed column to 1-indexed HTML column
+  const colAttr = String(col + 1);
+
+  // Create a new pellet
+  const pellet = document.createElement('div');
+  pellet.className = 'pellet';
+  pellet.dataset.col = colAttr;
+  pellet.dataset.row = String(cssRow);
+  pellet.dataset.player = String(currentPlayer);
+
+  // Add to board
+  board.appendChild(pellet);
+
+  // Block further clicks while animation is in progress
+  isDropping = true;
+
+  // Trigger animation (requestAnimationFrame ensures CSS is applied first)
+  requestAnimationFrame(() => {
+    pellet.classList.add('pellet--dropping');
+  });
+
+  // Capture state for async callback
+  const placedPlayer = currentPlayer;
+  const placedCol = col;
+  const placedRow = row;
+
+  pellet.addEventListener(
+    'animationend',
+    () => {
+      if (checkWin(boardState, placedCol, placedRow, placedPlayer)) {
+        stopTurnTimer();
+        gameOver = true;
+        // Update score
+        if (placedPlayer === 1) {
+          player1Score++;
+        } else {
+          player2Score++;
+        }
+        updateScoreDisplay();
+        // Show winner indicator box
+        showWinnerIndicator(placedPlayer);
+        // Set winner color CSS variable on game wrapper
+        const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
+        const winnerColor = placedPlayer === 1 ? 'var(--color-rose-400)' : 'var(--color-amber-300)';
+        gameWrapper?.style.setProperty('--winner-color', winnerColor);
+        // Re-enable hover for next game
+        setHoverEnabled(true);
+      } else if (checkDraw(boardState)) {
+        stopTurnTimer();
+        gameOver = true;
+        const indicator = document.getElementById('turn-indicator');
+        const label = indicator?.querySelector('.turn-indicator__label');
+        if (label) {
+          label.textContent = "It's a Draw!";
+        }
+        // Re-enable hover for next game
+        setHoverEnabled(true);
+      } else {
+        // Switch to other player and update indicator
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        updateTurnIndicator();
+
+        // Check if it's CPU's turn
+        if (isCpuTurn()) {
+          setHoverEnabled(false);
+          triggerCpuMove();
+        } else {
+          setHoverEnabled(true);
+          startTurnTimer();
+        }
+      }
+      // Allow next move after animation completes
+      isDropping = false;
+    },
+    { once: true }
+  );
+}
+
+/**
+ * Trigger the CPU to make a move after a delay.
+ */
+function triggerCpuMove(): void {
+  cpuMoveTimeout = window.setTimeout(() => {
+    cpuMoveTimeout = null;
+    if (gameOver || isPaused) return;
+
+    const cpuCol = getCpuMove(boardState);
+    makeMove(cpuCol);
+  }, CPU_DELAY_MS);
 }
 
 /**
@@ -261,14 +424,11 @@ function closePauseDialog(): void {
  */
 function setupPelletDrop(): void {
   const zones = document.querySelectorAll<HTMLElement>('.game-board__zone');
-  const board = document.querySelector<HTMLElement>('.game-board');
-
-  if (!board) return;
 
   zones.forEach((zone) => {
     zone.addEventListener('click', () => {
-      // Ignore clicks if game is over, paused, or a pellet is dropping
-      if (gameOver || isPaused || isDropping) return;
+      // Ignore clicks if game is over, paused, dropping, or CPU's turn
+      if (gameOver || isPaused || isDropping || isCpuTurn()) return;
 
       const colAttr = zone.dataset.col;
       if (!colAttr) return;
@@ -276,77 +436,7 @@ function setupPelletDrop(): void {
       // Convert 1-indexed HTML column to 0-indexed internal column
       const col = parseInt(colAttr, 10) - 1;
 
-      // Find the lowest empty row and place the piece
-      const row = placePiece(boardState, col, currentPlayer);
-      if (row === -1) return; // Column is full, ignore click
-
-      // Stop timer while processing the move
-      stopTurnTimer();
-
-      // Convert internal row to CSS row for positioning
-      const cssRow = internalRowToCssRow(row);
-
-      // Create a new pellet
-      const pellet = document.createElement('div');
-      pellet.className = 'pellet';
-      pellet.dataset.col = colAttr;
-      pellet.dataset.row = String(cssRow);
-      pellet.dataset.player = String(currentPlayer);
-
-      // Add to board
-      board.appendChild(pellet);
-
-      // Block further clicks while animation is in progress
-      isDropping = true;
-
-      // Trigger animation (requestAnimationFrame ensures CSS is applied first)
-      requestAnimationFrame(() => {
-        pellet.classList.add('pellet--dropping');
-      });
-
-      // Check for win or draw after animation completes
-      const placedPlayer = currentPlayer;
-      const placedCol = col;
-      const placedRow = row;
-
-      pellet.addEventListener(
-        'animationend',
-        () => {
-          if (checkWin(boardState, placedCol, placedRow, placedPlayer)) {
-            stopTurnTimer();
-            gameOver = true;
-            // Update score
-            if (placedPlayer === 1) {
-              player1Score++;
-            } else {
-              player2Score++;
-            }
-            updateScoreDisplay();
-            // Show winner indicator box
-            showWinnerIndicator(placedPlayer);
-            // Set winner color CSS variable on game wrapper
-            const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
-            const winnerColor = placedPlayer === 1 ? 'var(--color-rose-400)' : 'var(--color-amber-300)';
-            gameWrapper?.style.setProperty('--winner-color', winnerColor);
-          } else if (checkDraw(boardState)) {
-            stopTurnTimer();
-            gameOver = true;
-            const indicator = document.getElementById('turn-indicator');
-            const label = indicator?.querySelector('.turn-indicator__label');
-            if (label) {
-              label.textContent = "It's a Draw!";
-            }
-          }
-          // Allow next click after animation completes
-          isDropping = false;
-        },
-        { once: true }
-      );
-
-      // Switch to other player and update indicator
-      currentPlayer = currentPlayer === 1 ? 2 : 1;
-      updateTurnIndicator();
-      startTurnTimer();
+      makeMove(col);
     });
   });
 }

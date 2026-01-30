@@ -6,7 +6,9 @@ A Connect Four game implementation with a design system based on Figma specifica
 
 - `src/main.ts` - Entry point, UI interactions, DOM manipulation
 - `src/game.ts` - Core game logic (board state, piece placement, win detection)
+- `src/cpu.ts` - CPU AI using minimax with alpha-beta pruning
 - `src/game.test.ts` - Unit tests for game logic (run with `pnpm test`)
+- `src/cpu.test.ts` - Unit tests for CPU AI logic
 - `src/styles/` - CSS organized by component
   - `index.css` - Main entry point, imports all others
   - `tokens.css` - Design tokens (colors, typography, spacing)
@@ -27,6 +29,14 @@ A Connect Four game implementation with a design system based on Figma specifica
 - **Player vs Player (PvP)**: Two human players, names shown as "Player 1" and "Player 2"
 - **Player vs CPU**: Human vs computer, names shown as "You" and "CPU"
 - Game mode stored in `sessionStorage` under key `gameMode` ('pvp' or 'cpu')
+
+## CPU AI
+
+- Uses minimax algorithm with alpha-beta pruning (depth 6)
+- CPU plays as Player 2 with 500ms delay for natural feel
+- Evaluates positions based on: center control, 2/3-in-a-row patterns
+- Immediately takes winning moves and blocks opponent wins
+- Hover zones disabled during CPU turn via `.game-board__zones--disabled`
 
 ## Game Logic
 

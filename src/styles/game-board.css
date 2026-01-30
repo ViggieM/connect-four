@@ -60,6 +60,11 @@
   cursor: pointer;
 }
 
+/* Disable hover zones during CPU turn */
+.game-board__zones--disabled {
+  pointer-events: none;
+}
+
 /* Pure CSS hover: show column marker when hovering zone */
 /* Uses :has() selector for parent-based conditional styling */
 .game-board:has(.game-board__zone[data-col="1"]:hover) .game-board__svg--col1 { opacity: 1; }
