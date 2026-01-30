@@ -20,6 +20,7 @@ let gameOver = false;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
+let roundStartingPlayer: Player = 1;
 
 // Timer state
 let turnTimer: number | null = null;
@@ -184,7 +185,11 @@ function clearBoard(): void {
 function restartGame(): void {
   clearBoard();
   boardState = createBoard();
-  currentPlayer = 1;
+  // Only alternate starting player if the previous game ended
+  if (gameOver) {
+    roundStartingPlayer = roundStartingPlayer === 1 ? 2 : 1;
+  }
+  currentPlayer = roundStartingPlayer;
   gameOver = false;
   isPaused = false;
   // Clear winner color
