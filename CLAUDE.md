@@ -23,6 +23,10 @@ A Connect Four game implementation with a design system based on Figma specifica
   - `responsive.css` - Tablet/mobile breakpoints
 - `index.html` - Main menu with game mode selection
 - `game.html` - Game board UI
+- `game-rules.html` - Game rules page
+- `netlify.toml` - Netlify deployment configuration
+- `vite.config.ts` - Vite build configuration (multi-page entry points)
+- `tsconfig.json` - TypeScript compiler configuration
 
 ## Game Modes
 
@@ -85,6 +89,14 @@ Font: Space Grotesk (Variable)
 - **Hover**: Pure CSS using `:has()` selector to show column markers
 - **Pellets**: Animated drop with `.pellet--dropping` class
 
+
+## Deployment
+
+- **Build**: `pnpm build` outputs static files to `dist/`
+- **Hosting**: Configured for Netlify via `netlify.toml`
+- **Deploy options**:
+  - Git-based: Connect repo to Netlify dashboard for auto-deploy on push
+  - CLI: `npx netlify deploy --prod` (requires `netlify-cli`)
 
 ## MCP Server instructions
 

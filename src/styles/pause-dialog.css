@@ -48,7 +48,6 @@
   line-height: var(--text-preset-1-line-height);
   color: var(--color-neutral-0);
   text-transform: uppercase;
-  font-style: italic;
   text-align: center;
   margin: 0 0 var(--spacing-500);
 }

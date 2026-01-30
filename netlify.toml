@@ -1,0 +1,6 @@
+# ABOUTME: Netlify deployment configuration for the Connect Four game.
+# ABOUTME: Defines build command and publish directory for static site deployment.
+
+[build]
+  command = "pnpm build"
+  publish = "dist"
