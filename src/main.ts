@@ -20,6 +20,11 @@ let gameOver = false;
 let player1Score = 0;
 let player2Score = 0;
 
+// Timer state
+let turnTimer: number | null = null;
+let timeRemaining = 30;
+const TURN_TIME_LIMIT = 30;
+
 /**
  * Update the turn indicator to show the current player.
  */
@@ -66,6 +71,81 @@ function updateScoreDisplay(): void {
 }
 
 /**
+ * Update the timer display element.
+ */
+function updateTimerDisplay(): void {
+  const timerEl = document.getElementById('turn-timer');
+  if (!timerEl) return;
+
+  timerEl.textContent = `${timeRemaining}s`;
+
+  // Add warning class when 5 seconds or less
+  if (timeRemaining <= 5) {
+    timerEl.classList.add('turn-indicator__timer--warning');
+  } else {
+    timerEl.classList.remove('turn-indicator__timer--warning');
+  }
+}
+
+/**
+ * Stop the turn timer.
+ */
+function stopTurnTimer(): void {
+  if (turnTimer !== null) {
+    clearInterval(turnTimer);
+    turnTimer = null;
+  }
+}
+
+/**
+ * Handle timeout win - opponent wins when time expires.
+ */
+function handleTimeoutWin(winner: Player): void {
+  stopTurnTimer();
+  gameOver = true;
+
+  // Update winner's score
+  if (winner === 1) {
+    player1Score++;
+  } else {
+    player2Score++;
+  }
+  updateScoreDisplay();
+
+  // Show winner indicator box
+  showWinnerIndicator(winner);
+
+  // Set winner color CSS variable on game wrapper
+  const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
+  const winnerColor = winner === 1 ? 'var(--color-rose-400)' : 'var(--color-amber-300)';
+  gameWrapper?.style.setProperty('--winner-color', winnerColor);
+}
+
+/**
+ * Start the turn timer for the current player.
+ */
+function startTurnTimer(): void {
+  // Clear any existing timer
+  stopTurnTimer();
+
+  // Reset time
+  timeRemaining = TURN_TIME_LIMIT;
+  updateTimerDisplay();
+
+  // Start countdown
+  turnTimer = window.setInterval(() => {
+    timeRemaining--;
+    updateTimerDisplay();
+
+    if (timeRemaining <= 0) {
+      // Time expired - opponent wins
+      const winner: Player = currentPlayer === 1 ? 2 : 1;
+      handleTimeoutWin(winner);
+    }
+  }, 1000);
+}
+
+/**
  * Clear all pellets from the board.
  */
 function clearBoard(): void {
@@ -89,6 +169,7 @@ function restartGame(): void {
   const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
   gameWrapper?.style.removeProperty('--winner-color');
   updateTurnIndicator();
+  startTurnTimer();
 }
 
 /**
@@ -117,6 +198,9 @@ function setupPelletDrop(): void {
       const row = placePiece(boardState, col, currentPlayer);
       if (row === -1) return; // Column is full, ignore click
 
+      // Stop timer while processing the move
+      stopTurnTimer();
+
       // Convert internal row to CSS row for positioning
       const cssRow = internalRowToCssRow(row);
 
@@ -144,6 +228,7 @@ function setupPelletDrop(): void {
         'animationend',
         () => {
           if (checkWin(boardState, placedCol, placedRow, placedPlayer)) {
+            stopTurnTimer();
             gameOver = true;
             // Update score
             if (placedPlayer === 1) {
@@ -159,6 +244,7 @@ function setupPelletDrop(): void {
             const winnerColor = placedPlayer === 1 ? 'var(--color-rose-400)' : 'var(--color-amber-300)';
             gameWrapper?.style.setProperty('--winner-color', winnerColor);
           } else if (checkDraw(boardState)) {
+            stopTurnTimer();
             gameOver = true;
             const indicator = document.getElementById('turn-indicator');
             const label = indicator?.querySelector('.turn-indicator__label');
@@ -173,6 +259,7 @@ function setupPelletDrop(): void {
       // Switch to other player and update indicator
       currentPlayer = currentPlayer === 1 ? 2 : 1;
       updateTurnIndicator();
+      startTurnTimer();
     });
   });
 }
@@ -213,6 +300,7 @@ function initGame(): void {
   setupButtons();
   updateTurnIndicator();
   updateScoreDisplay();
+  startTurnTimer();
 }
 
 // Initialize when DOM is ready

@@ -62,6 +62,34 @@
   color: var(--color-neutral-950);
 }
 
+/* Timer display */
+.turn-indicator__timer {
+  font-size: var(--text-preset-1-size);
+  font-weight: var(--text-preset-1-weight);
+  line-height: var(--text-preset-1-line-height);
+  color: var(--color-neutral-0);
+  margin-top: var(--spacing-100);
+}
+
+.turn-indicator--p2 .turn-indicator__timer {
+  color: var(--color-neutral-950);
+}
+
+/* Hide timer in winner state */
+.turn-indicator--winner .turn-indicator__timer {
+  display: none;
+}
+
+/* Warning state when time is low */
+.turn-indicator__timer--warning {
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
 /* Winner state elements - hidden by default */
 .turn-indicator__wins,
 .turn-indicator__play-again {
