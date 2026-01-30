@@ -3,21 +3,17 @@
 
 /* ===================
    TABLET (max-width: 1000px)
-   Player cards move above board
+   Player cards above board (already in new layout)
    =================== */
 
 @media (max-width: 1000px) {
-  .game {
-    padding-top: var(--spacing-400);
-  }
-
   .game-header {
     margin-bottom: var(--spacing-200);
     width: 100%;
     max-width: 632px;
   }
 
-  .game-main {
+  .game {
     grid-template-areas:
       "p1 p2"
       "board board";
@@ -25,6 +21,7 @@
     gap: var(--spacing-150);
     width: 100%;
     max-width: 632px;
+    margin: 0 auto;
   }
 
   /* Horizontal cards with avatar on side */

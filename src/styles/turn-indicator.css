@@ -1,11 +1,32 @@
 /* ABOUTME: Turn indicator component styles */
 /* ABOUTME: Shows current player's turn with colored SVG background */
 
-.turn-indicator {
+.turn-indicator-wrapper {
+  --bg-start: 33%;
+  position: relative;
+  top: -55px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    transparent var(--bg-start),
+    var(--color-indigo-700) var(--bg-start)
+  );
+}
+
+.turn-indicator-wrapper::after {
+  content: '';
   position: absolute;
-  bottom: 2%;
-  left: 50%;
-  transform: translate(-50%, 75%);
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 55px;
+  background-color: var(--color-indigo-700);
+  z-index: -1;
+}
+
+.turn-indicator {
   width: 191px;
   height: 165px;
   display: flex;
@@ -13,7 +34,6 @@
   align-items: center;
   justify-content: flex-start;
   padding-top: var(--spacing-500);
-  z-index: 2;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,37 +1,6 @@
 /* ABOUTME: Game layout styles */
 /* ABOUTME: Main container, header, and grid layout for game screen */
 
-/* Main game container */
-.game {
-  position: relative;
-  min-height: 100vh;
-  background-color: var(--color-indigo-500);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-400) var(--spacing-200);
-}
-
-/* Partial background fill */
-.game::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 8%; /* Adjust this value as needed */
-  background-color: var(--color-indigo-700);
-  z-index: 0;
-  border-radius: var(--radius-60) var(--radius-60) 0 0;
-}
-
-/* Ensure content appears above the pseudo-element */
-.game > * {
-  position: relative;
-  z-index: 1;
-}
-
 /* ===================
    GAME HEADER
    =================== */
@@ -42,7 +11,8 @@
   align-items: center;
   width: 632px;
   max-width: 100%;
-  margin-bottom: var(--spacing-600);
+  margin: 0 auto var(--spacing-600);
+  padding-top: var(--spacing-400);
 }
 
 .game-header > :first-child {
@@ -59,26 +29,37 @@
 }
 
 /* ===================
-   GAME MAIN AREA
+   GAME (Players + Board Grid)
    =================== */
 
-.game-main {
+.game {
   display: grid;
   grid-template-areas:
     "p1 board p2";
   grid-template-columns: auto 632px auto;
   gap: var(--spacing-400);
   align-items: start;
+  justify-content: center;
 }
 
-.game-main > .player-card--p1 {
+.game > .player-card--p1 {
   grid-area: p1;
 }
 
-.game-main > .game-board {
+.game > .game-board {
   grid-area: board;
 }
 
-.game-main > .player-card--p2 {
+.game > .player-card--p2 {
   grid-area: p2;
+}
+
+/* ===================
+   GAME FOOTER
+   =================== */
+
+.game-footer {
+  flex: 1;
+  width: 100%;
+  background-color: var(--color-indigo-700);
 }
