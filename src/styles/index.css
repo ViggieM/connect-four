@@ -13,6 +13,7 @@
 @import './player-card.css';
 @import './turn-indicator.css';
 @import './pellet.css';
+@import './pause-dialog.css';
 
 /* Layout */
 @import './layout.css';

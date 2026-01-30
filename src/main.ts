@@ -19,6 +19,7 @@ let currentPlayer: Player = 1;
 let gameOver = false;
 let player1Score = 0;
 let player2Score = 0;
+let isPaused = false;
 
 // Timer state
 let turnTimer: number | null = null;
@@ -122,6 +123,26 @@ function handleTimeoutWin(winner: Player): void {
 }
 
 /**
+ * Resume the turn timer without resetting time.
+ */
+function resumeTurnTimer(): void {
+  // Don't resume if timer is already running or game is over
+  if (turnTimer !== null || gameOver) return;
+
+  // Start countdown from current time
+  turnTimer = window.setInterval(() => {
+    timeRemaining--;
+    updateTimerDisplay();
+
+    if (timeRemaining <= 0) {
+      // Time expired - opponent wins
+      const winner: Player = currentPlayer === 1 ? 2 : 1;
+      handleTimeoutWin(winner);
+    }
+  }, 1000);
+}
+
+/**
  * Start the turn timer for the current player.
  */
 function startTurnTimer(): void {
@@ -165,11 +186,42 @@ function restartGame(): void {
   boardState = createBoard();
   currentPlayer = 1;
   gameOver = false;
+  isPaused = false;
   // Clear winner color
   const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
   gameWrapper?.style.removeProperty('--winner-color');
   updateTurnIndicator();
   startTurnTimer();
+}
+
+/**
+ * Open the pause dialog and stop the timer.
+ */
+function openPauseDialog(): void {
+  const overlay = document.getElementById('pause-overlay');
+  const dialog = document.getElementById('pause-dialog') as HTMLDialogElement | null;
+  if (!overlay || !dialog || gameOver) return;
+
+  isPaused = true;
+  stopTurnTimer();
+  overlay.hidden = false;
+  dialog.show();
+  // Remove focus from auto-focused button
+  (document.activeElement as HTMLElement | null)?.blur();
+}
+
+/**
+ * Close the pause dialog and resume the timer.
+ */
+function closePauseDialog(): void {
+  const overlay = document.getElementById('pause-overlay');
+  const dialog = document.getElementById('pause-dialog') as HTMLDialogElement | null;
+  if (!overlay || !dialog) return;
+
+  isPaused = false;
+  overlay.hidden = true;
+  dialog.close();
+  resumeTurnTimer();
 }
 
 /**
@@ -185,8 +237,8 @@ function setupPelletDrop(): void {
 
   zones.forEach((zone) => {
     zone.addEventListener('click', () => {
-      // Ignore clicks if game is over
-      if (gameOver) return;
+      // Ignore clicks if game is over or paused
+      if (gameOver || isPaused) return;
 
       const colAttr = zone.dataset.col;
       if (!colAttr) return;
@@ -271,21 +323,40 @@ function setupButtons(): void {
   const restartBtn = document.getElementById('restart-btn');
   const menuBtn = document.getElementById('menu-btn');
   const playAgainBtn = document.getElementById('play-again-btn');
+  const continueBtn = document.getElementById('continue-btn');
+  const dialogRestartBtn = document.getElementById('dialog-restart-btn');
+  const quitBtn = document.getElementById('quit-btn');
 
   if (restartBtn) {
     restartBtn.addEventListener('click', restartGame);
   }
 
   if (menuBtn) {
-    // Menu button - for now just restart (menu screen not implemented yet)
-    menuBtn.addEventListener('click', () => {
-      // TODO: Show menu modal when implemented
-      restartGame();
-    });
+    menuBtn.addEventListener('click', openPauseDialog);
   }
 
   if (playAgainBtn) {
     playAgainBtn.addEventListener('click', restartGame);
+  }
+
+  // Dialog buttons
+  if (continueBtn) {
+    continueBtn.addEventListener('click', closePauseDialog);
+  }
+
+  if (dialogRestartBtn) {
+    dialogRestartBtn.addEventListener('click', () => {
+      closePauseDialog();
+      restartGame();
+    });
+  }
+
+  if (quitBtn) {
+    // Quit button - restart game (main menu not implemented)
+    quitBtn.addEventListener('click', () => {
+      closePauseDialog();
+      restartGame();
+    });
   }
 }
 

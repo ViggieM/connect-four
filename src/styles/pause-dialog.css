@@ -1,0 +1,100 @@
+/* ABOUTME: Pause dialog component styles */
+/* ABOUTME: Modal dialog with continue, restart, and quit buttons */
+
+/* ===================
+   PAUSE OVERLAY
+   =================== */
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.pause-overlay[hidden] {
+  display: none;
+}
+
+/* ===================
+   PAUSE DIALOG
+   =================== */
+
+.pause-dialog {
+  background-color: var(--color-indigo-500);
+  border: var(--border-width-button) solid var(--color-neutral-950);
+  border-radius: var(--radius-40);
+  box-shadow: var(--shadow-button-default);
+  padding: var(--spacing-375) var(--spacing-500) var(--spacing-600);
+
+  /* Reset default dialog styles */
+  position: relative;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+}
+
+/* ===================
+   DIALOG TITLE
+   =================== */
+
+.pause-dialog__title {
+  font-family: var(--font-family);
+  font-size: var(--text-preset-1-size);
+  font-weight: var(--text-preset-1-weight);
+  line-height: var(--text-preset-1-line-height);
+  color: var(--color-neutral-0);
+  text-transform: uppercase;
+  font-style: italic;
+  text-align: center;
+  margin: 0 0 var(--spacing-500);
+}
+
+/* ===================
+   DIALOG BUTTONS
+   =================== */
+
+.pause-dialog__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-375);
+}
+
+/* Make buttons full width within dialog with min-width for larger screens */
+.pause-dialog .btn-ingame-menu {
+  width: 100%;
+  min-width: 400px;
+}
+
+/* ===================
+   RESPONSIVE
+   =================== */
+
+@media (max-width: 480px) {
+  .pause-dialog {
+    padding: var(--spacing-250) var(--spacing-375) var(--spacing-500);
+    border-radius: var(--radius-20);
+    width: calc(100% - var(--spacing-400));
+    max-width: 335px;
+  }
+
+  .pause-dialog__title {
+    font-size: var(--text-preset-1-mobile-size);
+    line-height: var(--text-preset-1-mobile-line-height);
+    margin-bottom: var(--spacing-375);
+  }
+
+  .pause-dialog__buttons {
+    gap: var(--spacing-250);
+  }
+
+  .pause-dialog .btn-ingame-menu {
+    min-width: unset;
+    min-height: 56px;
+    font-size: var(--text-preset-3-size);
+    padding: var(--spacing-200);
+  }
+}
