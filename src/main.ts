@@ -2,7 +2,7 @@
 // ABOUTME: Handles UI interactions and DOM manipulation, delegates game logic to game.ts
 
 import '@fontsource-variable/space-grotesk';
-import './style.css';
+import './styles/index.css';
 import {
   type Board,
   type Player,
@@ -17,6 +17,59 @@ import {
 let boardState: Board;
 let currentPlayer: Player = 1;
 let gameOver = false;
+let player1Score = 0;
+let player2Score = 0;
+
+/**
+ * Update the turn indicator to show the current player.
+ */
+function updateTurnIndicator(): void {
+  const indicator = document.getElementById('turn-indicator');
+  if (!indicator) return;
+
+  const label = indicator.querySelector('.turn-indicator__label');
+  if (label) {
+    label.textContent = `Player ${currentPlayer}'s Turn`;
+  }
+
+  // Update styling classes
+  indicator.classList.remove('turn-indicator--p1', 'turn-indicator--p2');
+  indicator.classList.add(`turn-indicator--p${currentPlayer}`);
+}
+
+/**
+ * Update the score display for both players.
+ */
+function updateScoreDisplay(): void {
+  const p1ScoreEl = document.getElementById('p1-score');
+  const p2ScoreEl = document.getElementById('p2-score');
+
+  if (p1ScoreEl) p1ScoreEl.textContent = String(player1Score);
+  if (p2ScoreEl) p2ScoreEl.textContent = String(player2Score);
+}
+
+/**
+ * Clear all pellets from the board.
+ */
+function clearBoard(): void {
+  const board = document.querySelector<HTMLElement>('.game-board');
+  if (!board) return;
+
+  const pellets = board.querySelectorAll('.pellet');
+  pellets.forEach((pellet) => pellet.remove());
+}
+
+/**
+ * Restart the game - clear board and reset state.
+ * Scores are preserved between rounds.
+ */
+function restartGame(): void {
+  clearBoard();
+  boardState = createBoard();
+  currentPlayer = 1;
+  gameOver = false;
+  updateTurnIndicator();
+}
 
 /**
  * Set up pellet drop animation for each column zone.
@@ -72,19 +125,56 @@ function setupPelletDrop(): void {
         () => {
           if (checkWin(boardState, placedCol, placedRow, placedPlayer)) {
             gameOver = true;
-            alert(`Player ${placedPlayer} wins!`);
+            // Update score
+            if (placedPlayer === 1) {
+              player1Score++;
+            } else {
+              player2Score++;
+            }
+            updateScoreDisplay();
+            // Update indicator to show winner
+            const indicator = document.getElementById('turn-indicator');
+            const label = indicator?.querySelector('.turn-indicator__label');
+            if (label) {
+              label.textContent = `Player ${placedPlayer} Wins!`;
+            }
           } else if (checkDraw(boardState)) {
             gameOver = true;
-            alert("It's a draw!");
+            const indicator = document.getElementById('turn-indicator');
+            const label = indicator?.querySelector('.turn-indicator__label');
+            if (label) {
+              label.textContent = "It's a Draw!";
+            }
           }
         },
         { once: true }
       );
 
-      // Switch to other player
+      // Switch to other player and update indicator
       currentPlayer = currentPlayer === 1 ? 2 : 1;
+      updateTurnIndicator();
     });
   });
+}
+
+/**
+ * Set up event handlers for buttons.
+ */
+function setupButtons(): void {
+  const restartBtn = document.getElementById('restart-btn');
+  const menuBtn = document.getElementById('menu-btn');
+
+  if (restartBtn) {
+    restartBtn.addEventListener('click', restartGame);
+  }
+
+  if (menuBtn) {
+    // Menu button - for now just restart (menu screen not implemented yet)
+    menuBtn.addEventListener('click', () => {
+      // TODO: Show menu modal when implemented
+      restartGame();
+    });
+  }
 }
 
 /**
@@ -95,6 +185,9 @@ function initGame(): void {
   currentPlayer = 1;
   gameOver = false;
   setupPelletDrop();
+  setupButtons();
+  updateTurnIndicator();
+  updateScoreDisplay();
 }
 
 // Initialize when DOM is ready

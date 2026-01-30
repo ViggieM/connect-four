@@ -1,0 +1,21 @@
+/* ABOUTME: Main CSS entry point */
+/* ABOUTME: Imports all component and layout styles in correct order */
+
+/* Design tokens (must be first) */
+@import './tokens.css';
+
+/* Base styles and resets */
+@import './base.css';
+
+/* Components */
+@import './buttons.css';
+@import './game-board.css';
+@import './player-card.css';
+@import './turn-indicator.css';
+@import './pellet.css';
+
+/* Layout */
+@import './layout.css';
+
+/* Responsive (must be last to override) */
+@import './responsive.css';

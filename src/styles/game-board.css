@@ -1,0 +1,59 @@
+/* ABOUTME: Game board component styles */
+/* ABOUTME: Board container, SVG layers, hover zones, and column markers */
+
+/* Game board container - holds all SVG layers and hover zones */
+.game-board {
+  position: relative;
+  width: 632px;
+  max-width: 100%;
+  aspect-ratio: 632 / 631;
+  flex-shrink: 0;
+}
+
+/* All board SVGs are stacked absolutely */
+.game-board__svg {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Base SVG (no marker) - 628/631 = 99.52% of container height, aligned to bottom */
+.game-board__svg--base {
+  z-index: 1;
+  bottom: 0;
+  height: calc(628 / 631 * 100%);
+}
+
+/* Column marker SVGs - full height, hidden by default */
+.game-board__svg--col {
+  z-index: 2;
+  top: 0;
+  height: 100%;
+  opacity: 0;
+}
+
+/* Hover zones grid - on top to capture mouse events */
+.game-board__zones {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  z-index: 10;
+}
+
+.game-board__zone {
+  cursor: pointer;
+}
+
+/* Pure CSS hover: show column marker when hovering zone */
+/* Uses :has() selector for parent-based conditional styling */
+.game-board:has(.game-board__zone[data-col="1"]:hover) .game-board__svg--col1 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="2"]:hover) .game-board__svg--col2 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="3"]:hover) .game-board__svg--col3 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="4"]:hover) .game-board__svg--col4 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="5"]:hover) .game-board__svg--col5 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="6"]:hover) .game-board__svg--col6 { opacity: 1; }
+.game-board:has(.game-board__zone[data-col="7"]:hover) .game-board__svg--col7 { opacity: 1; }
+
+/* Hide base when any column is hovered */
+.game-board:has(.game-board__zone:hover) .game-board__svg--base { opacity: 0; }

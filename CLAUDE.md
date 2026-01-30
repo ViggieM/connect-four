@@ -7,7 +7,17 @@ A Connect Four game implementation with a design system based on Figma specifica
 - `src/main.ts` - Entry point, UI interactions, DOM manipulation
 - `src/game.ts` - Core game logic (board state, piece placement, win detection)
 - `src/game.test.ts` - Unit tests for game logic (run with `pnpm test`)
-- `src/style.css` - Design system CSS with custom properties
+- `src/styles/` - CSS organized by component
+  - `index.css` - Main entry point, imports all others
+  - `tokens.css` - Design tokens (colors, typography, spacing)
+  - `base.css` - Reset and typography utility classes
+  - `buttons.css` - Button components
+  - `layout.css` - Game container and grid layout
+  - `game-board.css` - Board SVG layers and hover zones
+  - `player-card.css` - Player score cards
+  - `turn-indicator.css` - Turn indicator component
+  - `pellet.css` - Game pieces and drop animation
+  - `responsive.css` - Tablet/mobile breakpoints
 - `index.html` - Game board UI
 
 ## Game Logic
@@ -45,12 +55,17 @@ Font: Space Grotesk (Variable)
 - Navigation Bar Buttons (Menu, Restart, Play Again)
 - Rules Button (circular)
 
+### Game Screen Layout
+- **Structure**: `.game` > `.game-header` + `.game-main` (contains player cards, board with turn indicator)
+- **Header**: Menu/Restart buttons with logo centered, 632px width
+- **Player Cards**: Desktop vertical (sides), tablet/mobile horizontal (above board)
+- **Turn Indicator**: Absolutely positioned inside `.game-board`, overlaps board bottom
+
 ### Game Board Component
-- **Dimensions**: 632×618px container, 7×6 grid of 64px cells with 88px spacing
-- **Structure**: `.game-board` > `.game-board__indicators` + `.game-board__container`
-- **Layers**: Black rear shadow (::before), pieces grid, white overlay with SVG mask holes
-- **Classes**: `.game-board__cell--player1` (rose), `.game-board__cell--player2` (amber)
-- **Technique**: CSS mask-image with inline SVG for transparent circular holes
+- **Dimensions**: 632×631px container, 7×6 grid
+- **Structure**: `.game-board` with SVG layers + `.game-board__zones` for click handling
+- **Hover**: Pure CSS using `:has()` selector to show column markers
+- **Pellets**: Animated drop with `.pellet--dropping` class
 
 
 ## MCP Server instructions

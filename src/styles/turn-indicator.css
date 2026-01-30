@@ -1,0 +1,43 @@
+/* ABOUTME: Turn indicator component styles */
+/* ABOUTME: Shows current player's turn with colored SVG background */
+
+.turn-indicator {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%, 75%);
+  width: 191px;
+  height: 165px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: var(--spacing-500);
+  z-index: 2;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Player 1 turn - rose background */
+.turn-indicator--p1 {
+  background-image: url("data:image/svg+xml,%3Csvg width='191' height='165' viewBox='0 0 191 165' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_d_5_4367)'%3E%3Cpath d='M95.5 0L191 44V112C191 139.614 168.614 157 141 157H50C22.3858 157 0 139.614 0 112V44L95.5 0Z' fill='%23FD6687'/%3E%3Cpath d='M93.9169 2.65914L95.5 1.87257L97.0831 2.65914L189 43.3361V112C189 138.234 167.895 154 141 154H50C23.1051 154 2 138.234 2 112V43.3361L93.9169 2.65914Z' stroke='black' stroke-width='3'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_d_5_4367' x='0' y='0' width='191' height='165' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeColorMatrix in='SourceAlpha' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0' result='hardAlpha'/%3E%3CfeOffset dy='8'/%3E%3CfeComposite in2='hardAlpha' operator='out'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3CfeBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_5_4367'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_5_4367' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
+}
+
+/* Player 2 turn - amber background */
+.turn-indicator--p2 {
+  background-image: url("data:image/svg+xml,%3Csvg width='191' height='165' viewBox='0 0 191 165' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_d_5_4367)'%3E%3Cpath d='M95.5 0L191 44V112C191 139.614 168.614 157 141 157H50C22.3858 157 0 139.614 0 112V44L95.5 0Z' fill='%23FFCE67'/%3E%3Cpath d='M93.9169 2.65914L95.5 1.87257L97.0831 2.65914L189 43.3361V112C189 138.234 167.895 154 141 154H50C23.1051 154 2 138.234 2 112V43.3361L93.9169 2.65914Z' stroke='black' stroke-width='3'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_d_5_4367' x='0' y='0' width='191' height='165' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeColorMatrix in='SourceAlpha' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0' result='hardAlpha'/%3E%3CfeOffset dy='8'/%3E%3CfeComposite in2='hardAlpha' operator='out'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3CfeBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_5_4367'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_5_4367' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
+}
+
+.turn-indicator__label {
+  font-size: var(--text-preset-4-size);
+  font-weight: var(--text-preset-4-bold-weight);
+  line-height: var(--text-preset-4-line-height);
+  text-transform: uppercase;
+  color: var(--color-neutral-0);
+}
+
+/* Player 2 turn text should be dark */
+.turn-indicator--p2 .turn-indicator__label {
+  color: var(--color-neutral-950);
+}

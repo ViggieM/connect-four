@@ -1,0 +1,148 @@
+/* ABOUTME: Responsive layout adjustments */
+/* ABOUTME: Tablet and mobile breakpoints for layout and components */
+
+/* ===================
+   TABLET (max-width: 1000px)
+   Player cards move above board
+   =================== */
+
+@media (max-width: 1000px) {
+  .game {
+    padding-top: var(--spacing-400);
+  }
+
+  .game-header {
+    margin-bottom: var(--spacing-200);
+    width: 100%;
+    max-width: 632px;
+  }
+
+  .game-main {
+    grid-template-areas:
+      "p1 p2"
+      "board board";
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-150);
+    width: 100%;
+    max-width: 632px;
+  }
+
+  /* Horizontal cards with avatar on side */
+  .player-card {
+    margin-top: 0;
+    width: 95%;
+    height: 100px;
+    flex-direction: row;
+    padding: var(--spacing-150) var(--spacing-250);
+    padding-left: var(--spacing-600);
+    padding-top: var(--spacing-150);
+  }
+
+  .player-card--p1 {
+    justify-self: end;
+  }
+
+  .player-card--p2 {
+    padding-left: var(--spacing-250);
+    padding-right: var(--spacing-600);
+  }
+
+  /* Avatar on sides */
+  .player-card__avatar {
+    width: 54px;
+    height: 59px;
+    top: 50%;
+    left: auto;
+    transform: translateY(-50%);
+  }
+
+  .player-card--p1 .player-card__avatar {
+    left: -20px;
+    right: auto;
+  }
+
+  .player-card--p2 .player-card__avatar {
+    right: -20px;
+    left: auto;
+  }
+
+  /* Info layout: horizontal */
+  .player-card__info {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .player-card--p2 .player-card__info {
+    flex-direction: row-reverse;
+  }
+
+  .player-card__name {
+    font-size: var(--text-preset-4-size);
+  }
+
+  .game-board {
+    justify-self: center;
+    width: 100%;
+    max-width: 632px;
+  }
+}
+
+/* ===================
+   MOBILE (max-width: 480px)
+   Smaller cards and turn indicator
+   =================== */
+
+@media (max-width: 480px) {
+  .game {
+    padding-top: var(--spacing-200);
+  }
+
+  .game-logo {
+    width: 46px;
+    height: 49px;
+  }
+
+  .player-card {
+    width: 90%;
+    height: 70px;
+    padding: var(--spacing-150) var(--spacing-200);
+    padding-left: var(--spacing-500);
+  }
+
+  .player-card--p2 {
+    padding-left: var(--spacing-200);
+    padding-right: var(--spacing-500);
+  }
+
+  .player-card__avatar {
+    width: 40px;
+    height: 44px;
+  }
+
+  .player-card--p1 .player-card__avatar {
+    left: -15px;
+  }
+
+  .player-card--p2 .player-card__avatar {
+    right: -15px;
+  }
+
+  .player-card__name {
+    font-size: 0.625rem;
+  }
+
+  .player-card__score {
+    font-size: var(--text-preset-2-size);
+  }
+
+  .turn-indicator {
+    width: 150px;
+    height: 130px;
+    padding-top: var(--spacing-375);
+  }
+
+  .turn-indicator__label {
+    font-size: 0.875rem;
+  }
+}

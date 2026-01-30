@@ -1,0 +1,77 @@
+/* ABOUTME: Pellet (game piece) component styles */
+/* ABOUTME: Positioning, colors, and drop animation for game pieces */
+
+/*
+ * Board geometry (relative units):
+ * - Board margin to first hole center: ~7.75% of width
+ * - Hole spacing (center to center): ~13.92% of width
+ * - Pellet diameter: ~10.13% of width
+ * - Bottom row top position: ~81.46% of height
+ * - Last row center to bottom edge: ~13.47% of height
+ */
+
+.pellet {
+  position: absolute;
+  /* Pellet is ~10.13% of board width, use same for height to keep circular */
+  width: 10.13%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color-rose-400);
+  box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
+  -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.33) inset;
+  z-index: 0;
+  pointer-events: none;
+  /* Pellet starts hidden above the board */
+  opacity: 0;
+}
+
+/* Position pellets horizontally by column */
+/* First column at 3.2%, then each column adds ~13.92% */
+.pellet[data-col="1"] { left: 3.2%; }
+.pellet[data-col="2"] { left: 17.12%; }
+.pellet[data-col="3"] { left: 31.04%; }
+.pellet[data-col="4"] { left: 44.96%; }
+.pellet[data-col="5"] { left: 58.88%; }
+.pellet[data-col="6"] { left: 72.8%; }
+.pellet[data-col="7"] { left: 86.72%; }
+
+/* Row positions (top edge of pellet) */
+/* Each row is ~13.92% apart, starting at 9.2% from top */
+.pellet[data-row="1"] { --target-top: 9.2%; }
+.pellet[data-row="2"] { --target-top: 23.12%; }
+.pellet[data-row="3"] { --target-top: 37.04%; }
+.pellet[data-row="4"] { --target-top: 50.96%; }
+.pellet[data-row="5"] { --target-top: 64.88%; }
+.pellet[data-row="6"] { --target-top: 78.8%; }
+
+/* Drop animation - from top to target row */
+@keyframes pellet-drop {
+  0% {
+    top: -12%;
+    opacity: 1;
+    z-index: 0;
+  }
+  99.9% {
+    z-index: 0;
+  }
+  100% {
+    /* Target row position from --target-top, defaults to bottom row */
+    top: var(--target-top, 78.8%);
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.pellet--dropping {
+  animation: pellet-drop 0.6s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
+
+/* Player colors */
+.pellet[data-player="1"] {
+  background-color: var(--color-rose-400);
+}
+
+.pellet[data-player="2"] {
+  background-color: var(--color-amber-300);
+}
