@@ -4,8 +4,18 @@ A Connect Four game implementation with a design system based on Figma specifica
 
 ## Project Structure
 
-- `src/style.css` - Design system CSS with custom properties (colors, typography, spacing, radius, buttons)
-- `index.html` - Kitchen sink showcasing all design tokens and components
+- `src/main.ts` - Entry point, UI interactions, DOM manipulation
+- `src/game.ts` - Core game logic (board state, piece placement, win detection)
+- `src/game.test.ts` - Unit tests for game logic (run with `pnpm test`)
+- `src/style.css` - Design system CSS with custom properties
+- `index.html` - Game board UI
+
+## Game Logic
+
+- Board is 7 columns × 6 rows, stored as `Board[col][row]`
+- Row 0 is the bottom, row 5 is the top
+- CSS uses inverted row numbers: `cssRow = 6 - internalRow`
+- Win detection checks 4 directions: horizontal, vertical, diagonal (↗ and ↘)
 
 ## Design System
 
