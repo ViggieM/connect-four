@@ -20,7 +20,7 @@
   transform: translateX(-50%);
   width: 100vw;
   height: var(--radius-60);
-  background-color: var(--color-indigo-700);
+  background-color: var(--winner-color, var(--color-indigo-700));
   border-radius: var(--radius-60) var(--radius-60) 0 0;
   z-index: -1;
 }

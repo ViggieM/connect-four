@@ -32,9 +32,26 @@ function updateTurnIndicator(): void {
     label.textContent = `Player ${currentPlayer}'s Turn`;
   }
 
-  // Update styling classes
-  indicator.classList.remove('turn-indicator--p1', 'turn-indicator--p2');
+  // Update styling classes - remove winner state when updating turn
+  indicator.classList.remove('turn-indicator--p1', 'turn-indicator--p2', 'turn-indicator--winner');
   indicator.classList.add(`turn-indicator--p${currentPlayer}`);
+}
+
+/**
+ * Show the winner indicator with the rectangular box style.
+ */
+function showWinnerIndicator(winner: Player): void {
+  const indicator = document.getElementById('turn-indicator');
+  if (!indicator) return;
+
+  const label = indicator.querySelector('.turn-indicator__label');
+  if (label) {
+    label.textContent = `Player ${winner}`;
+  }
+
+  // Add winner class for rectangular box style
+  indicator.classList.remove('turn-indicator--p1', 'turn-indicator--p2');
+  indicator.classList.add('turn-indicator--winner');
 }
 
 /**
@@ -68,6 +85,9 @@ function restartGame(): void {
   boardState = createBoard();
   currentPlayer = 1;
   gameOver = false;
+  // Clear winner color
+  const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
+  gameWrapper?.style.removeProperty('--winner-color');
   updateTurnIndicator();
 }
 
@@ -132,12 +152,12 @@ function setupPelletDrop(): void {
               player2Score++;
             }
             updateScoreDisplay();
-            // Update indicator to show winner
-            const indicator = document.getElementById('turn-indicator');
-            const label = indicator?.querySelector('.turn-indicator__label');
-            if (label) {
-              label.textContent = `Player ${placedPlayer} Wins!`;
-            }
+            // Show winner indicator box
+            showWinnerIndicator(placedPlayer);
+            // Set winner color CSS variable on game wrapper
+            const gameWrapper = document.querySelector<HTMLElement>('.game-wrapper');
+            const winnerColor = placedPlayer === 1 ? 'var(--color-rose-400)' : 'var(--color-amber-300)';
+            gameWrapper?.style.setProperty('--winner-color', winnerColor);
           } else if (checkDraw(boardState)) {
             gameOver = true;
             const indicator = document.getElementById('turn-indicator');
@@ -163,6 +183,7 @@ function setupPelletDrop(): void {
 function setupButtons(): void {
   const restartBtn = document.getElementById('restart-btn');
   const menuBtn = document.getElementById('menu-btn');
+  const playAgainBtn = document.getElementById('play-again-btn');
 
   if (restartBtn) {
     restartBtn.addEventListener('click', restartGame);
@@ -174,6 +195,10 @@ function setupButtons(): void {
       // TODO: Show menu modal when implemented
       restartGame();
     });
+  }
+
+  if (playAgainBtn) {
+    playAgainBtn.addEventListener('click', restartGame);
   }
 }
 

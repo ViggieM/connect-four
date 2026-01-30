@@ -151,6 +151,17 @@
   color: var(--color-neutral-0);
 }
 
+/* Primary Nav Button (for Play Again) */
+.btn-nav-primary {
+  background-color: var(--color-indigo-700);
+  color: var(--color-neutral-0);
+}
+
+.btn-nav-primary:hover,
+.btn-nav-primary:focus {
+  background-color: var(--color-rose-400);
+}
+
 /* ===================
    RULES BUTTON (Circle)
    =================== */
