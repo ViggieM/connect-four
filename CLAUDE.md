@@ -6,7 +6,6 @@ A Connect Four game implementation with a design system based on Figma specifica
 
 - `src/style.css` - Design system CSS with custom properties (colors, typography, spacing, radius, buttons)
 - `index.html` - Kitchen sink showcasing all design tokens and components
-- `specs.md` - Links to Figma design files
 
 ## Design System
 
@@ -36,10 +35,9 @@ Font: Space Grotesk (Variable)
 - Navigation Bar Buttons (Menu, Restart, Play Again)
 - Rules Button (circular)
 
-## Development
-
-Uses the Space Grotesk variable font from `@fontsource-variable/space-grotesk`.
-
-## Figma Source
-
-Design tokens extracted from Figma file: `F46kDEteRibSQEAqQBAJKF`
+### Game Board Component
+- **Dimensions**: 632×618px container, 7×6 grid of 64px cells with 88px spacing
+- **Structure**: `.game-board` > `.game-board__indicators` + `.game-board__container`
+- **Layers**: Black rear shadow (::before), pieces grid, white overlay with SVG mask holes
+- **Classes**: `.game-board__cell--player1` (rose), `.game-board__cell--player2` (amber)
+- **Technique**: CSS mask-image with inline SVG for transparent circular holes
