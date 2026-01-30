@@ -41,3 +41,11 @@ Font: Space Grotesk (Variable)
 - **Layers**: Black rear shadow (::before), pieces grid, white overlay with SVG mask holes
 - **Classes**: `.game-board__cell--player1` (rose), `.game-board__cell--player2` (amber)
 - **Technique**: CSS mask-image with inline SVG for transparent circular holes
+
+
+## MCP Server instructions
+
+### Puppeteer
+
+- Dev server is probably already running, check first. use pnpm to start it
+- On Linux, use `launchOptions: {"headless": true, "args": ["--no-sandbox"]}` with `allowDangerous: true` to avoid sandbox errors

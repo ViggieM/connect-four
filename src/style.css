@@ -366,7 +366,8 @@ body {
 .game-board {
   position: relative;
   width: 632px;
-  height: 631px;
+  max-width: 100%;
+  aspect-ratio: 632 / 631;
 }
 
 /* All board SVGs are stacked absolutely */
@@ -376,18 +377,18 @@ body {
   pointer-events: none;
 }
 
-/* Base SVG (no marker) - 628px tall, aligned to bottom */
+/* Base SVG (no marker) - 628/631 = 99.52% of container height, aligned to bottom */
 .game-board__svg--base {
   z-index: 1;
   bottom: 0;
-  height: 628px;
+  height: calc(628 / 631 * 100%);
 }
 
-/* Column marker SVGs - 631px tall, hidden by default */
+/* Column marker SVGs - full height, hidden by default */
 .game-board__svg--col {
   z-index: 2;
   top: 0;
-  height: 631px;
+  height: 100%;
   opacity: 0;
 }
 
@@ -424,6 +425,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Ensure board doesn't overflow on small screens */
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* ===================
