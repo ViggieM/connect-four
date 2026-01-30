@@ -7,67 +7,69 @@
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <!-- Header: Menu button, logo, Restart button -->
-    <header class="game-header">
-      <button class="btn btn-nav btn-nav-default" id="menu-btn">Menu</button>
-      <img src="/src/assets/logo.svg" alt="Connect Four" class="game-logo" />
-      <button class="btn btn-nav btn-nav-default" id="restart-btn">Restart</button>
-    </header>
+    <div class="game-wrapper">
+      <!-- Header: Menu button, logo, Restart button -->
+      <header class="game-header">
+        <button class="btn btn-nav btn-nav-default" id="menu-btn">Menu</button>
+        <img src="/src/assets/logo.svg" alt="Connect Four" class="game-logo" />
+        <button class="btn btn-nav btn-nav-default" id="restart-btn">Restart</button>
+      </header>
 
-    <!-- Main game area (players + board grid) -->
-    <div class="game">
-      <!-- Player 1 score card (left) -->
-      <div class="player-card player-card--p1">
-        <img src="/src/assets/player-1.svg" alt="" class="player-card__avatar" />
-        <div class="player-card__info">
-          <span class="player-card__name">Player 1</span>
-          <span class="player-card__score" id="p1-score">0</span>
+      <!-- Main game area (players + board grid) -->
+      <div class="game">
+        <!-- Player 1 score card (left) -->
+        <div class="player-card player-card--p1">
+          <img src="/src/assets/player-1.svg" alt="" class="player-card__avatar" />
+          <div class="player-card__info">
+            <span class="player-card__name">Player 1</span>
+            <span class="player-card__score" id="p1-score">0</span>
+          </div>
+        </div>
+
+        <!-- Game board -->
+        <div class="game-board">
+          <!-- Base SVG (no marker) - visible when not hovering -->
+          <img src="/src/assets/game-board/0.svg" alt="" class="game-board__svg game-board__svg--base" />
+
+          <!-- Column marker SVGs - shown on column hover -->
+          <img src="/src/assets/game-board/1.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col1" />
+          <img src="/src/assets/game-board/2.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col2" />
+          <img src="/src/assets/game-board/3.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col3" />
+          <img src="/src/assets/game-board/4.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col4" />
+          <img src="/src/assets/game-board/5.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col5" />
+          <img src="/src/assets/game-board/6.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col6" />
+          <img src="/src/assets/game-board/7.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col7" />
+
+          <!-- Invisible hover zones (7 columns) -->
+          <div class="game-board__zones">
+            <div class="game-board__zone" data-col="1"></div>
+            <div class="game-board__zone" data-col="2"></div>
+            <div class="game-board__zone" data-col="3"></div>
+            <div class="game-board__zone" data-col="4"></div>
+            <div class="game-board__zone" data-col="5"></div>
+            <div class="game-board__zone" data-col="6"></div>
+            <div class="game-board__zone" data-col="7"></div>
+          </div>
+        </div>
+
+        <!-- Player 2 score card (right) -->
+        <div class="player-card player-card--p2">
+          <img src="/src/assets/player-2.svg" alt="" class="player-card__avatar" />
+          <div class="player-card__info">
+            <span class="player-card__name">Player 2</span>
+            <span class="player-card__score" id="p2-score">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- Game board -->
-      <div class="game-board">
-        <!-- Base SVG (no marker) - visible when not hovering -->
-        <img src="/src/assets/game-board/0.svg" alt="" class="game-board__svg game-board__svg--base" />
-
-        <!-- Column marker SVGs - shown on column hover -->
-        <img src="/src/assets/game-board/1.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col1" />
-        <img src="/src/assets/game-board/2.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col2" />
-        <img src="/src/assets/game-board/3.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col3" />
-        <img src="/src/assets/game-board/4.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col4" />
-        <img src="/src/assets/game-board/5.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col5" />
-        <img src="/src/assets/game-board/6.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col6" />
-        <img src="/src/assets/game-board/7.svg" alt="" class="game-board__svg game-board__svg--col game-board__svg--col7" />
-
-        <!-- Invisible hover zones (7 columns) -->
-        <div class="game-board__zones">
-          <div class="game-board__zone" data-col="1"></div>
-          <div class="game-board__zone" data-col="2"></div>
-          <div class="game-board__zone" data-col="3"></div>
-          <div class="game-board__zone" data-col="4"></div>
-          <div class="game-board__zone" data-col="5"></div>
-          <div class="game-board__zone" data-col="6"></div>
-          <div class="game-board__zone" data-col="7"></div>
+      <!-- Turn indicator -->
+      <div class="turn-indicator-wrapper">
+        <div class="turn-indicator turn-indicator--p1" id="turn-indicator">
+          <span class="turn-indicator__label">Player 1's Turn</span>
         </div>
       </div>
 
-      <!-- Player 2 score card (right) -->
-      <div class="player-card player-card--p2">
-        <img src="/src/assets/player-2.svg" alt="" class="player-card__avatar" />
-        <div class="player-card__info">
-          <span class="player-card__name">Player 2</span>
-          <span class="player-card__score" id="p2-score">0</span>
-        </div>
-      </div>
+      <footer class="game-footer"></footer>
     </div>
-
-    <!-- Turn indicator -->
-    <div class="turn-indicator-wrapper">
-      <div class="turn-indicator turn-indicator--p1" id="turn-indicator">
-        <span class="turn-indicator__label">Player 1's Turn</span>
-      </div>
-    </div>
-
-    <footer class="game-footer"></footer>
   </body>
 </html>
