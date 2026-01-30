@@ -27,13 +27,19 @@
    =================== */
 
 .btn-main-menu {
+  position: relative;
   font-size: var(--text-preset-2-size);
   line-height: var(--text-preset-2-line-height);
   padding: var(--spacing-250);
   border-radius: var(--radius-20);
-  width: 400px;
-  min-height: 72px;
+  width: 100%;
   box-shadow: var(--shadow-button-default);
+}
+
+@media (min-width: 481px) {
+  .btn-main-menu {
+    min-width: 400px;
+  }
 }
 
 .btn-main-menu:hover,
@@ -62,15 +68,21 @@
 .btn-game-rules {
   background-color: var(--color-neutral-0);
   color: var(--color-neutral-950);
+  justify-content: flex-start;
 }
 
 /* Button content layout for buttons with icons */
 .btn-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   width: 100%;
-  gap: var(--spacing-200);
+  text-align: left;
+}
+
+.btn-content svg {
+  position: absolute;
+  right: var(--spacing-250);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* ===================

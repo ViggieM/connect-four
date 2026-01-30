@@ -13,6 +13,23 @@ import {
   internalRowToCssRow,
 } from './game';
 
+// Game mode type
+type GameMode = 'pvp' | 'cpu';
+
+// Get game mode from sessionStorage
+function getGameMode(): GameMode {
+  return (sessionStorage.getItem('gameMode') as GameMode) || 'pvp';
+}
+
+// Player name helpers
+function getPlayer1Name(): string {
+  return getGameMode() === 'cpu' ? 'You' : 'Player 1';
+}
+
+function getPlayer2Name(): string {
+  return getGameMode() === 'cpu' ? 'CPU' : 'Player 2';
+}
+
 // Game state
 let boardState: Board;
 let currentPlayer: Player = 1;
@@ -36,7 +53,12 @@ function updateTurnIndicator(): void {
 
   const label = indicator.querySelector('.turn-indicator__label');
   if (label) {
-    label.textContent = `Player ${currentPlayer}'s Turn`;
+    const name = currentPlayer === 1 ? getPlayer1Name() : getPlayer2Name();
+    if (name === 'You') {
+      label.textContent = 'Your Turn';
+    } else {
+      label.textContent = `${name}'s Turn`;
+    }
   }
 
   // Update styling classes - remove winner state when updating turn
@@ -53,7 +75,8 @@ function showWinnerIndicator(winner: Player): void {
 
   const label = indicator.querySelector('.turn-indicator__label');
   if (label) {
-    label.textContent = `Player ${winner}`;
+    const name = winner === 1 ? getPlayer1Name() : getPlayer2Name();
+    label.textContent = name;
   }
 
   // Add winner class for rectangular box style
@@ -205,7 +228,7 @@ function restartGame(): void {
 function openPauseDialog(): void {
   const overlay = document.getElementById('pause-overlay');
   const dialog = document.getElementById('pause-dialog') as HTMLDialogElement | null;
-  if (!overlay || !dialog || gameOver) return;
+  if (!overlay || !dialog) return;
 
   isPaused = true;
   stopTurnTimer();
@@ -357,12 +380,22 @@ function setupButtons(): void {
   }
 
   if (quitBtn) {
-    // Quit button - restart game (main menu not implemented)
     quitBtn.addEventListener('click', () => {
       closePauseDialog();
-      restartGame();
+      sessionStorage.removeItem('gameMode');
+      window.location.href = '/';
     });
   }
+}
+
+/**
+ * Set player card names based on game mode.
+ */
+function updatePlayerNames(): void {
+  const p1Name = document.getElementById('p1-name');
+  const p2Name = document.getElementById('p2-name');
+  if (p1Name) p1Name.textContent = getPlayer1Name();
+  if (p2Name) p2Name.textContent = getPlayer2Name();
 }
 
 /**
@@ -374,10 +407,35 @@ function initGame(): void {
   gameOver = false;
   setupPelletDrop();
   setupButtons();
+  updatePlayerNames();
   updateTurnIndicator();
   updateScoreDisplay();
   startTurnTimer();
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', initGame);
+/**
+ * Set up event handlers for main menu buttons.
+ */
+function setupMainMenu(): void {
+  const btnVsCpu = document.getElementById('btn-vs-cpu');
+  const btnVsPlayer = document.getElementById('btn-vs-player');
+
+  btnVsCpu?.addEventListener('click', () => {
+    sessionStorage.setItem('gameMode', 'cpu');
+    window.location.href = '/game.html';
+  });
+
+  btnVsPlayer?.addEventListener('click', () => {
+    sessionStorage.setItem('gameMode', 'pvp');
+    window.location.href = '/game.html';
+  });
+}
+
+// Initialize when DOM is ready - detect which page we're on
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('.main-menu')) {
+    setupMainMenu();
+  } else if (document.querySelector('.game-wrapper')) {
+    initGame();
+  }
+});

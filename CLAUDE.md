@@ -12,13 +12,21 @@ A Connect Four game implementation with a design system based on Figma specifica
   - `tokens.css` - Design tokens (colors, typography, spacing)
   - `base.css` - Reset and typography utility classes
   - `buttons.css` - Button components
+  - `main-menu.css` - Main menu card styling
   - `layout.css` - Game container and grid layout
   - `game-board.css` - Board SVG layers and hover zones
   - `player-card.css` - Player score cards
   - `turn-indicator.css` - Turn indicator component
   - `pellet.css` - Game pieces and drop animation
   - `responsive.css` - Tablet/mobile breakpoints
-- `index.html` - Game board UI
+- `index.html` - Main menu with game mode selection
+- `game.html` - Game board UI
+
+## Game Modes
+
+- **Player vs Player (PvP)**: Two human players, names shown as "Player 1" and "Player 2"
+- **Player vs CPU**: Human vs computer, names shown as "You" and "CPU"
+- Game mode stored in `sessionStorage` under key `gameMode` ('pvp' or 'cpu')
 
 ## Game Logic
 

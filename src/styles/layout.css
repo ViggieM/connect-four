@@ -23,7 +23,7 @@
   width: 632px;
   max-width: 100%;
   margin: auto auto var(--spacing-600);
-  padding: var(--spacing-400) var(--spacing-200) 0;
+  padding: var(--spacing-400) 0;
 }
 
 .game-header > :first-child {

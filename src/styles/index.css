@@ -9,6 +9,7 @@
 
 /* Components */
 @import './buttons.css';
+@import './main-menu.css';
 @import './game-board.css';
 @import './player-card.css';
 @import './turn-indicator.css';
