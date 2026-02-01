@@ -15,11 +15,11 @@
 .game-board::before {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 95%;
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  height: var(--radius-60);
+  height: 200px;
   background-color: var(--winner-color, var(--color-indigo-700));
   border-radius: var(--radius-60) var(--radius-60) 0 0;
   z-index: -1;

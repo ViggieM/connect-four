@@ -2,28 +2,12 @@
 /* ABOUTME: Shows current player's turn with colored SVG background, transforms to winner box on game end */
 
 .turn-indicator-wrapper {
-  --bg-start: 33%;
+  --bg-start: 50%;
   position: relative;
-  top: -55px;
+  bottom: -91%;
   z-index: 2;
   display: flex;
   justify-content: center;
-  background: linear-gradient(
-    to bottom,
-    transparent var(--bg-start),
-    var(--winner-color, var(--color-indigo-700)) var(--bg-start)
-  );
-}
-
-.turn-indicator-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 55px;
-  background-color: var(--winner-color, var(--color-indigo-700));
-  z-index: -1;
 }
 
 .turn-indicator {

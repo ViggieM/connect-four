@@ -50,6 +50,16 @@
             <div class="game-board__zone" data-col="6"></div>
             <div class="game-board__zone" data-col="7"></div>
           </div>
+
+          <!-- Turn indicator -->
+          <div class="turn-indicator-wrapper">
+            <div class="turn-indicator turn-indicator--p1" id="turn-indicator">
+              <span class="turn-indicator__label">Player 1's Turn</span>
+              <span class="turn-indicator__timer" id="turn-timer">30s</span>
+              <span class="turn-indicator__wins">Wins</span>
+              <button class="btn btn-nav btn-nav-primary turn-indicator__play-again" id="play-again-btn">Play Again</button>
+            </div>
+          </div>
         </div>
 
         <!-- Player 2 score card (right) -->
@@ -62,17 +72,7 @@
         </div>
       </div>
 
-      <!-- Turn indicator -->
-      <div class="turn-indicator-wrapper">
-        <div class="turn-indicator turn-indicator--p1" id="turn-indicator">
-          <span class="turn-indicator__label">Player 1's Turn</span>
-          <span class="turn-indicator__timer" id="turn-timer">30s</span>
-          <span class="turn-indicator__wins">Wins</span>
-          <button class="btn btn-nav btn-nav-primary turn-indicator__play-again" id="play-again-btn">Play Again</button>
-        </div>
-      </div>
 
-      <footer class="game-footer"></footer>
 
       <!-- Pause Dialog Overlay -->
       <div class="pause-overlay" id="pause-overlay" hidden>

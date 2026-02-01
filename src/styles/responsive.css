@@ -138,9 +138,15 @@
   }
 
   .turn-indicator {
-    width: 150px;
-    height: 130px;
+    width: 191px;
+    height: 150px;
     padding-top: var(--spacing-375);
+  }
+
+  .turn-indicator.turn-indicator--winner {
+    width: 281px;
+    height: 158px;
+    padding-top: var(--spacing-150);
   }
 
   .turn-indicator__label {
